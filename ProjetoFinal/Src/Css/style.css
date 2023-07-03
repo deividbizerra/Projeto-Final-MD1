@@ -1,0 +1,309 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* STYLE AREA DE LOGIN */
+.tituloForm p {
+  margin: 0;
+  color: #424242;
+  font-size: 20px;
+  letter-spacing: 0.2px;
+  font-weight: 400;
+}
+
+.tituloForm h2 {
+  font-weight: 700;
+  line-height: 50.4px;
+}
+
+.tituloForm {
+  font-family: "Sora", sans-serif;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+}
+
+.container-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  width: 420px;
+  height: 445px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 0 20px 0 darkgray;
+  background: #fdfdfd;
+}
+
+.login form label {
+  display: flex;
+}
+
+.login form {
+  position: relative;
+  margin-top: 20px;
+  font-family: "Poppins", sans-serif;
+}
+
+.login input[type="email"],
+input[type="password"] {
+  border: 1px solid rgb(199, 199, 199);
+  margin-top: 0px;
+  padding: 8px 0 8px 35px;
+  outline: none;
+  width: 100%;
+  position: relative;
+  font-size: 16px;
+  color: #212121;
+}
+
+.labelLogin {
+  margin-top: 20px;
+  font-size: 14px;
+}
+.labelcheck {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+}
+.login button {
+  border: none;
+  width: 100%;
+  margin-top: 25px;
+  padding: 10px;
+  background-color: #482d83;
+  color: white;
+  outline: none;
+  transition: all 0.4s;
+}
+
+.login button:hover {
+  background-color: #1a1033;
+}
+
+.inputsForm {
+  border-radius: 20px;
+}
+
+.login i {
+  position: absolute;
+  left: 0px;
+  padding: 10px 10px;
+  color: gray;
+}
+
+.icon {
+  margin-top: 4px;
+}
+
+.esqSenha {
+  float: right;
+  font-size: 14px;
+  color: #616161;
+  text-decoration: none;
+}
+
+.sucesso {
+  border: 1px solid #00c247 !important;
+}
+.sucessoLabel {
+  color: #00c247;
+}
+
+.invalido {
+  border: 1px solid red !important;
+}
+.invalidoLabel {
+  color: red;
+}
+
+.validacao {
+  margin-top: 10px;
+  display: none;
+  color: red;
+}
+
+/* STYLE ASIDER */
+.container-aside {
+  width: 271px;
+  height: 100vh;
+  background: #482d83;
+  padding: 15px;
+  font-family: "Poppins", sans-serif;
+  position: fixed;
+}
+
+.spanMentor {
+  color: #fbb04d;
+}
+.container-aside .spanClass {
+  color: white;
+  font-weight: 900;
+}
+
+.container-aside h2 {
+  text-align: center;
+  margin-top: 32px;
+}
+
+.itensAside {
+  margin-top: 30px;
+}
+
+.itensAside > ul {
+  list-style: none;
+  padding-left: 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+  align-items: flex-start;
+}
+
+.itensAside li {
+  font-size: 18px;
+  padding: 15px;
+  transition: all 0.4s;
+  cursor: pointer;
+  display: flex;
+  gap: 15px;
+}
+.itensAside a {
+  width: 100%;
+  text-decoration: none;
+  color: white;
+}
+
+.container-aside img {
+  font-size: 24px;
+  gap: 15px;
+  width: 24px;
+  height: 24px;
+}
+
+.itensAside li:hover {
+  border-radius: 8px;
+  background: #7682c167;
+}
+
+.aside-button {
+  border-radius: 8px;
+  background: #7682c167;
+}
+
+/* STYLE MAIN */
+.container-main {
+  width: 100%;
+  height: 100vh;
+}
+
+.perfil {
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px;
+  gap: 15px;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.perilImg {
+  background-color: #482d83;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(255, 255, 255);
+  font-size: 15px;
+}
+
+.perfil h3 {
+  font-size: 15px;
+  font-family: "Sora", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 140%;
+  letter-spacing: 0.2px;
+  margin: 0;
+}
+
+.perfil p {
+  font-size: 15px;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: 0.2px;
+  margin: 0;
+  padding: 0;
+}
+.titulo h2 {
+  font-size: 25px;
+  font-family: "Sora", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%;
+  margin-top: 50px;
+}
+
+.titulo{
+  margin-bottom: 35px;
+  margin-left: 305px;
+}
+
+.search-itens {
+  display: flex;
+  justify-content: space-between;
+}
+
+.main-conteudo {
+  margin-left: 305px;
+  margin-right: 30px;
+  box-shadow: 1px  5px 5px 2px black;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.main-conteudo button {
+  border: none;
+  padding: 12px 64px;
+  background-color: #00c247;
+  border-radius: 16px;
+  color: white;
+}
+
+.main-conteudo input {
+  outline: none;
+  width: 300px;
+  height: 56px;
+  border-radius: 16px;
+  border: 1px solid rgba(128, 128, 128, 0.644);
+  padding: 15px;
+  padding-right: 30px;
+}
+
+.search-container {
+  position: relative;
+}
+
+.search-container i {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #999999;
+  cursor: pointer;
+}
