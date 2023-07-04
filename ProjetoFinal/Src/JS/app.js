@@ -3,6 +3,7 @@ const tbody = document.querySelector("#tbody");
 const formMentores = document.querySelector("#formMentores");
 const Erroname = document.querySelector("#nome");
 const Erroemail = document.querySelector("#email");
+const inputSearch = document.getElementById("inputSearch");
 
 // Função assíncrona para buscar os mentores
 const buscarMentores = async () => {
@@ -20,6 +21,8 @@ const buscarMentores = async () => {
 
 // Função para exibir os mentores na tabela
 const mostrarMentores = (dados) => {
+  tbody.innerHTML = "";
+
   dados.forEach((dados) => {
     // Cria uma nova linha na tabela com os dados do mentor
     tbody.innerHTML =
@@ -86,6 +89,36 @@ const cadastrarMentores = async (mentores) => {
     window.location = "../mentores.html";
   } catch (error) {
     console.log(error);
+  }
+};
+
+const pesquisar = () => {
+  // Evento 'keyup' é acionado quando uma tecla é liberada no input de busca
+
+  const digitado = inputSearch.value.toLowerCase();
+  // Obtém o valor digitado no input de busca em letras minúsculas e armazena na variável 'digitado'
+
+  const itens = tbody.getElementsByTagName("tr");
+  // Obtém todos os elementos <tr> dentro do elemento <tbody> e armazena na variável 'itens'
+
+  for (let posicao in itens) {
+    // Itera sobre os elementos 'itens' usando a variável 'posicao'
+
+    if (true === isNaN(posicao)) {
+      continue;
+      // Verifica se 'posicao' não é um número (índice inválido) e pula para a próxima iteração
+    }
+
+    let conteudoTabela = itens[posicao].innerHTML.toLowerCase();
+    // Obtém o conteúdo HTML do elemento <tr> atual em letras minúsculas e armazena na variável 'conteudoTabela'
+
+    if (true === conteudoTabela.includes(digitado)) {
+      itens[posicao].style.display = "";
+      // Se o valor digitado estiver presente no conteúdo da tabela, mostra o elemento <tr>
+    } else {
+      itens[posicao].style.display = "none";
+      // Caso contrário, oculta o elemento <tr>
+    }
   }
 };
 

@@ -78,32 +78,33 @@
               type="search"
               placeholder="Pesquise uma palavra-chave"
               class="inputSearch"
+              id="inputSearch" onkeyup="pesquisar()"
             />
             <i class="fas fa-search"></i>
           </div>
-          <button type="submit" class="buttonNovoMentor" onclick="novoMentoria()">
+          <button
+            type="submit"
+            class="buttonNovoMentor"
+            onclick="novoMentoria()"
+          >
             <i class="fas fa-plus"></i> Nova Mentoria
           </button>
         </div>
 
         <section class="tabelaMentores">
-
           <table id="table">
             <thead>
-            <tr >
-              <th class="table-th-d">Nome</th>
-              <th>E-mail</th>
-              <th class="table-e">Ações</th>
-            </tr>
-          </thead>
-          
-          <tbody id="tbody"></tbody>
-          </table>
+              <tr>
+                <th class="table-th-d">Nome</th>
+                <th>E-mail</th>
+                <th class="table-e">Ações</th>
+              </tr>
+            </thead>
 
-          
+            <tbody id="tbody"></tbody>
+          </table>
         </section>
       </section>
     </main>
-    
   </body>
 </html>
