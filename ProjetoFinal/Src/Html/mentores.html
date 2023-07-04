@@ -20,9 +20,10 @@
       integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
       crossorigin="anonymous"
     />
-    <script src="../JS/app.js"></script>
+    <script src="../JS/app.js" defer></script>
   </head>
-  <body>
+
+  <body class="dark">
     <!-- MENU ASIDER -->
     <header>
       <aside class="container-aside">
@@ -55,36 +56,53 @@
 
     <!-- CONTEUDO MAIN -->
     <main class="container-main">
-      
       <div class="perfil">
         <div class="perilImg">
           <i class="fas fa-user"></i>
         </div>
 
-          <div>
-            <h3>Deivid Souza</h3>
-            <p>deivid@gmail.com</p>
-          
+        <div>
+          <h3>Deivid Souza</h3>
+          <p>deivid@gmail.com</p>
         </div>
       </div>
 
-    
+      <div class="titulo">
+        <h3>Mentores</h3>
+      </div>
 
       <section class="main-conteudo">
-
-
         <div class="search-itens">
           <div class="search-container">
-          <input type="search" placeholder="Pesquise uma palavra-chave">
+            <input
+              type="search"
+              placeholder="Pesquise uma palavra-chave"
+              class="inputSearch"
+            />
             <i class="fas fa-search"></i>
           </div>
-          <button type="submit">Nova Mentoria</button>
+          <button type="submit" class="buttonNovoMentor" onclick="novoMentoria()">
+            <i class="fas fa-plus"></i> Nova Mentoria
+          </button>
         </div>
 
-        
+        <section class="tabelaMentores">
+
+          <table id="table">
+            <thead>
+            <tr >
+              <th class="table-th-d">Nome</th>
+              <th>E-mail</th>
+              <th class="table-e">Ações</th>
+            </tr>
+          </thead>
+          
+          <tbody id="tbody"></tbody>
+          </table>
+
+          
+        </section>
       </section>
-
-
     </main>
     
   </body>
