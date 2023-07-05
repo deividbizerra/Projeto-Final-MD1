@@ -14,7 +14,7 @@ const editarAutor = async (mentor) => {
   });
 
   // Redireciona para a página "../mentores.html" após a edição do mentor
-  window.location = "../mentores.html";
+  window.location = "../Mentores/mentores.html";
 };
 
 // Função para carregar os dados do mentor a ser editado

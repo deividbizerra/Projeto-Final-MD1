@@ -1,14 +1,12 @@
 {
   "mentores": [
     {
-      "name": "dede",
-      "email": "souzadeivid326@gmail.com",
-      "id": 1
-    },
-    {
-      "name": "deivid",
-      "email": "souzadeivid326@gmail.com",
+      "name": "Leticia",
+      "email": "leticia@gmail.com",
       "id": 2
     }
-  ]
+  ],
+  "mentorias": [],
+  "turmas": [],
+  "aulunos": []
 }

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cadastro Mentor</title>
+    <title>Mentores</title>
 
     <link
       rel="SHORTCUT ICON"
@@ -20,8 +20,9 @@
       integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
       crossorigin="anonymous"
     />
-    <script src="../../JS/Mentores JS/editarMentores.js" defer></script>
+    <script src="../../JS/Mentores JS/mentores.js" defer></script>
   </head>
+
   <body class="dark">
     <!-- MENU ASIDER -->
     <header>
@@ -32,22 +33,20 @@
         </h2>
         <div class="itensAside">
           <ul>
-            <a href="../mentores.html" id="btnMentores" class="aside-button">
-              <li>
-                <img src="../../Img/user-business.png" alt="" /> Mentores
-              </li></a
+            <a href="../Mentores/mentores.html" id="btnMentores" class="aside-button">
+              <li><img src="../../Img/user-business.png" alt="" /> Mentores</li></a
             >
-            <a href="../mentorias.html">
+            <a href="../Mentorias/mentorias.html">
               <li>
                 <img src="../../Img/notebook-and-pen.svg" alt="" />Mentorias
               </li></a
             >
-            <a href="../turmas.html"
+            <a href="../Turmas/turmas.html"
               ><li>
                 <img src="../../Img/playback-progress.svg" alt="" />Turmas
               </li></a
             >
-            <a href="../alunos.html">
+            <a href="../Alunos/alunos.html">
               <li><img src="../../Img/every-user.svg" alt="" />Alunos</li></a
             >
           </ul>
@@ -69,46 +68,41 @@
       </div>
 
       <div class="titulo">
-        <h3>
-          <a href="../Mentores/mentores.html"
-            ><i class="fas fa-arrow-left iconVoltar"></i
-          ></a>
-          Mentor
-        </h3>
+        <h3>Mentores</h3>
       </div>
 
       <section class="main-conteudo">
-        <span class="dadosMentor">Dados</span>
-        <hr />
-        <section class="cadastroMentores">
-          <form action="" class="formMentores" id="formMentores">
-            <div class="containerFomr">
-              <div class="">
-                <label for="nome">Nome:</label>
-                <input
-                  type="text"
-                  id="nome"
-                  class="inputFormMent nameMentores"
-                  name="nome"
-                />
-              </div>
+        <div class="search-itens">
+          <div class="search-container">
+            <input
+              type="search"
+              placeholder="Pesquise uma palavra-chave"
+              class="inputSearch"
+              id="inputSearch" onkeyup="pesquisar()"
+            />
+            <i class="fas fa-search"></i>
+          </div>
+          <button
+            type="submit"
+            class="buttonNovoMentor"
+            onclick="novoMentor()"
+          >
+            <i class="fas fa-plus"></i> Novo Mentor
+          </button>
+        </div>
 
-              <div class="">
-                <label for="email">E-mail:</label>
+        <section class="tabelaMentores">
+          <table id="table">
+            <thead>
+              <tr>
+                <th class="table-th-d">Nome</th>
+                <th>E-mail</th>
+                <th class="table-e">Ações</th>
+              </tr>
+            </thead>
 
-                <input
-                  type="email"
-                  id="email"
-                  class="inputFormMent"
-                  name="email"
-                />
-              </div>
-            </div>
-
-            <div class="salvarMentor">
-              <button type="submit">Salvar</button>
-            </div>
-          </form>
+            <tbody id="tbody"></tbody>
+          </table>
         </section>
       </section>
     </main>

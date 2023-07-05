@@ -4,6 +4,7 @@ const formMentores = document.querySelector("#formMentores");
 const Erroname = document.querySelector("#nome");
 const Erroemail = document.querySelector("#email");
 const inputSearch = document.getElementById("inputSearch");
+const checkboxDark = document.getElementById("checkboxDark");
 
 // Função assíncrona para buscar os mentores
 const buscarMentores = async () => {
@@ -29,7 +30,7 @@ const mostrarMentores = (dados) => {
       tbody.innerHTML +
       `
         <tr>
-          <td>${dados.name}</td>
+          <td class="nameMentores">${dados.name}</td>
           <td>${dados.email}</td>
           <td class="icones">
             <i class="fas fa-edit iMentorEditar" onclick="editarMentores(${dados.id})"></i>
@@ -64,12 +65,12 @@ buscarMentores();
 // Função para redirecionar para a página de edição de mentor
 const editarMentores = (id) => {
   // Redireciona para a página "Mentores/editarmentor.html" passando o parâmetro "id" na URL
-  window.location = `Mentores/editarmentor.html?id=${id}`;
+  window.location = `../Mentores/editarmentor.html?id=${id}`;
 };
 
 // Função para redirecionar para a página de criação de nova mentoria
-const novoMentoria = () => {
-  window.location = "Mentores/novomento.html";
+const novoMentor = () => {
+  window.location = "../Mentores/novomento.html";
 };
 
 // Função para cadastrar um novo mentor
@@ -86,15 +87,13 @@ const cadastrarMentores = async (mentores) => {
     });
 
     // Redireciona o usuário para a página "../mentores.html" após o cadastro
-    window.location = "../mentores.html";
+    window.location = "../Mentores/mentores.html";
   } catch (error) {
     console.log(error);
   }
 };
 
 const pesquisar = () => {
-  // Evento 'keyup' é acionado quando uma tecla é liberada no input de busca
-
   const digitado = inputSearch.value.toLowerCase();
   // Obtém o valor digitado no input de busca em letras minúsculas e armazena na variável 'digitado'
 

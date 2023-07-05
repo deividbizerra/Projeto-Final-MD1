@@ -20,9 +20,10 @@
       integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
       crossorigin="anonymous"
     />
-    <script src="../../JS/Mentores JS/editarMentores.js" defer></script>
+
+    <script src="../../JS/Mentorias JS/editarmentoria.js" defer></script>
   </head>
-  <body class="dark">
+  <body>
     <!-- MENU ASIDER -->
     <header>
       <aside class="container-aside">
@@ -32,12 +33,12 @@
         </h2>
         <div class="itensAside">
           <ul>
-            <a href="../mentores.html" id="btnMentores" class="aside-button">
+            <a href="../mentores.html" id="btnMentores">
               <li>
                 <img src="../../Img/user-business.png" alt="" /> Mentores
               </li></a
             >
-            <a href="../mentorias.html">
+            <a href="../mentorias.html" class="aside-button">
               <li>
                 <img src="../../Img/notebook-and-pen.svg" alt="" />Mentorias
               </li></a
@@ -70,10 +71,10 @@
 
       <div class="titulo">
         <h3>
-          <a href="../Mentores/mentores.html"
+          <a href="../Mentorias/mentorias.html"
             ><i class="fas fa-arrow-left iconVoltar"></i
           ></a>
-          Mentor
+          Mentoria
         </h3>
       </div>
 
@@ -81,27 +82,42 @@
         <span class="dadosMentor">Dados</span>
         <hr />
         <section class="cadastroMentores">
-          <form action="" class="formMentores" id="formMentores">
+          <form action="" class="formMentorias" id="formMentorias">
             <div class="containerFomr">
-              <div class="">
-                <label for="nome">Nome:</label>
+              <div class="inputsMentoria">
+                <label for="nome">Título da mentoria:</label>
                 <input
                   type="text"
-                  id="nome"
-                  class="inputFormMent nameMentores"
-                  name="nome"
+                  id="tituloMentoria"
+                  class="inputFormMent inputName"
+                  name="tituloMentoria"
                 />
               </div>
 
-              <div class="">
-                <label for="email">E-mail:</label>
+              <div class="inputsMentoria">
+                <label for="email">Mentor:</label>
 
-                <input
-                  type="email"
-                  id="email"
+                <select
+                  name="mentor"
+                  id="mentor"
                   class="inputFormMent"
-                  name="email"
+                ></select>
+              </div>
+            </div>
+
+            <div class="containerChackBox">
+              <label for="status">Status:</label>
+              <div class="switchCheck">
+                <input
+                  type="checkbox"
+                  id="checkboxStatus"
+                  onchange="validarStatus()"
                 />
+                <label for="checkboxStatus" class="switch statusLabel">
+                  <span class="slider"></span>
+                </label>
+
+                <div id="statusMessage" name="status"></div>
               </div>
             </div>
 
