@@ -1,11 +1,5 @@
 {
-  "mentores": [
-    {
-      "name": "Leticia",
-      "email": "leticia@gmail.com",
-      "id": 2
-    }
-  ],
+  "mentores": [],
   "mentorias": [],
   "turmas": [],
   "aulunos": []

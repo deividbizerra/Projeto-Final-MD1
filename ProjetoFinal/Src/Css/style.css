@@ -450,3 +450,12 @@ input[type="password"] {
   gap: 8px;
 }
 
+
+.status-ativo {
+  color: #00C247;
+}
+
+.status-inativo {
+  color: #FF3333;
+}
+

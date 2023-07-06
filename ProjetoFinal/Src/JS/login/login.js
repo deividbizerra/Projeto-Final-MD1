@@ -45,7 +45,7 @@ formulario.addEventListener("submit", (e) => {
     if (email.value == "admin@gmail.com" && senha.value == "admin") {
       // Redirecionando para a página "telainicial.html" após 1 segundo
       setTimeout(function () {
-        window.location = "../Html/Mentores/mentores.html";
+        window.location = "Html/Mentores/mentores.html";
       }, 1000);
     } else {
       // Exibindo a mensagem de validação e adicionando classes de estilo inválido aos elementos

@@ -10,7 +10,7 @@ const buscarMentorias = async () => {
   try {
     const response = await fetch("http://localhost:3000/mentorias");
     const mentoriasJson = await response.json();
-    console.log(mentoriasJson);
+
     mostrarMentorias(mentoriasJson);
   } catch (erro) {
     console.log(erro);
@@ -27,15 +27,20 @@ const mostrarMentorias = (dados) => {
   tbody.innerHTML = ""; // Limpa o conteúdo anterior da tabela
 
   dados.forEach((dados) => {
-    tbody.innerHTML +=
-      `
+    tbody.innerHTML += `
     <tr>
           <td class="nameMentores">${dados.titulo}</td>
           <td>${dados.mentor.name}</td>
-          <td id="status">${dados.status}</td>
+          <td id="status" class="status ${
+            dados.status === "Ativo" ? "status-ativo" : "status-inativo"
+          }">${dados.status}</td>
           <td class="icones">
-            <i class="fas fa-edit iMentorEditar" onclick="editarMentoria(${dados.id})"></i>
-            <i class="fas fa-trash iMentorExcluir" onclick="deleMentoria(${dados.id})"></i>
+            <i class="fas fa-edit iMentorEditar" onclick="editarMentoria(${
+              dados.id
+            })"></i>
+            <i class="fas fa-trash iMentorExcluir" onclick="deleMentoria(${
+              dados.id
+            })"></i>
           </td>
         </tr>
     `;
@@ -62,7 +67,6 @@ const deleMentoria = async (mentoriaId) => {
 const novaMentoria = () => {
   window.location = "../Mentorias/novamentoria.html";
 };
-
 
 const pesquisar = () => {
   const digitado = inputSearch.value.toLowerCase();

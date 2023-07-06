@@ -1,12 +1,11 @@
 const formulario = document.querySelector("#formMentorias");
 
-console.log(formulario);
 // Função para buscar um mentor pelo ID
 const buscarMentoresId = async (id) => {
   if (id == null) {
     return false;
   }
-  console.log(id);
+
   const response = await fetch(`http://localhost:3000/mentores/${id}`);
   const mentoresJson = await response.json();
   return mentoresJson;
@@ -63,15 +62,16 @@ const validarStatus = () => {
 };
 
 formulario.addEventListener("submit", async (e) => {
-  console.log("rodou");
   e.preventDefault();
 
   const titulo = formulario.elements["tituloMentoria"].value;
   const name = document.getElementById("mentor").value; // Obtém o ID do mentor selecionado
   const status = document.getElementById("statusMessage").textContent;
 
+  console.log(name)
+
   const mentoriaObj = await buscarMentoresId(name);
-  console.log(mentoriaObj);
+  // console.log(mentoriaObj);
 
   if (Object.keys(mentoriaObj).length == 0) {
     console.log("Erro: Não foi possível registrar o post, autor inválido");
@@ -83,7 +83,7 @@ formulario.addEventListener("submit", async (e) => {
     status,
     mentor: mentoriaObj,
   };
-  console.log(mentoria);
+
   cadastrarMentoria(mentoria);
 });
 
