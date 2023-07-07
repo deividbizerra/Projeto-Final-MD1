@@ -116,7 +116,7 @@ formulario.addEventListener("submit", async (e) => {
   };
 
   // Chama a função editarMentoria para salvar as alterações na API
-  await editarMentoria(idEditar, mentoria);
+  editarMentoria(idEditar, mentoria);
 
   // Redireciona o usuário para a página de mentorias
   window.location = "../Mentorias/mentorias.html";

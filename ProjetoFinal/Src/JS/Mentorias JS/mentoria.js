@@ -1,7 +1,5 @@
 const tbody = document.querySelector("#tbody");
 const formMentores = document.querySelector("#formMentorias");
-const Erroname = document.querySelector("#nome");
-const Erroemail = document.querySelector("#email");
 
 let mentoriaId = null;
 

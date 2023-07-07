@@ -20,9 +20,10 @@
       integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
       crossorigin="anonymous"
     />
-    <script src="../../JS/Mentores JS/editarMentores.js" defer></script>
+
+    <!-- <script src="../../JS/Mentorias JS/novaMentoria.js" defer></script> -->
   </head>
-  <body class="dark">
+  <body>
     <!-- MENU ASIDER -->
     <header>
       <aside class="container-aside">
@@ -32,7 +33,7 @@
         </h2>
         <div class="itensAside">
           <ul>
-            <a href="mentores.html" id="btnMentores" class="aside-button">
+            <a href="../Mentores/mentores.html" id="btnMentores">
               <li>
                 <img src="../../Img/user-business.png" alt="" /> Mentores
               </li></a
@@ -42,7 +43,7 @@
                 <img src="../../Img/notebook-and-pen.svg" alt="" />Mentorias
               </li></a
             >
-            <a href="../Turmas/turmas.html"
+            <a href="../Turmas/turmas.html" class="aside-button"
               ><li>
                 <img src="../../Img/playback-progress.svg" alt="" />Turmas
               </li></a
@@ -70,10 +71,10 @@
 
       <div class="titulo">
         <h3>
-          <a href="../Mentores/mentores.html"
+          <a href="../Turmas/turmas.html"
             ><i class="fas fa-arrow-left iconVoltar"></i
           ></a>
-          Mentor
+          Nova turma
         </h3>
       </div>
 
@@ -81,28 +82,75 @@
         <span class="dadosMentor">Dados</span>
         <hr />
         <section class="cadastroMentores">
-          <form action="" class="formMentores" id="formMentores">
+          <form action="" class="formMentorias" id="formMentorias">
             <div class="containerFomr">
-
               <div class="inputsMentoria">
-                <label for="nome">Nome:</label>
-                <input
+                <label for="nome">Mentoria:</label>
+                <select
                   type="text"
-                  id="nome"
-                  class="inputFormMent nameMentores"
-                  name="nome"
-                />
+                  id="tituloMentoria"
+                  class="inputFormMent"
+                  name="tituloMentoria"
+                ></select>
               </div>
 
               <div class="inputsMentoria">
-                <label for="email">E-mail:</label>
+                <label for="email">Mentor:</label>
 
-                <input
-                  type="email"
-                  id="email"
+                <select
+                  name="mentor"
+                  id="mentor"
                   class="inputFormMent"
-                  name="email"
-                />
+                ></select>
+              </div>
+            </div>
+
+            <div class="containerInputs">
+              <div>
+                <label label for="status">Data de inicio:</label>
+                <input type="date" class="inputFormMent" />
+              </div>
+
+              <div>
+                <label label for="status">Dia da semana:</label>
+                <select name="" id="" class="inputFormMent">
+                  <option value="Segunda-feira">Segunda-feira</option>
+                  <option value="Terça-feira">Terça-feira</option>
+                  <option value="Terça-feira">Quarta-feira</option>
+                  <option value="Terça-feira">Quinta-feira</option>
+                  <option value="Terça-feira">Sexta-feira</option>
+                </select>
+              </div>
+
+              <div>
+                <label label for="status">Horario de inicio:</label>
+                <input type="text" class="inputFormMent" />
+              </div>
+
+              <div>
+                <label label for="status">Hora de fim</label>
+                <input type="text" class="inputFormMent" />
+              </div>
+            </div>
+
+            <div class="tagturma">
+              <span>Turma</span>
+              <hr />
+            </div>
+            <div class="containerInputs">
+              <div>
+                <label for="">Turma</label>
+                <input type="text" class="inputFormMent" />
+              </div>
+
+              <div>
+                <label for="">Link da aula</label>
+                <input type="text" class="inputFormMent" />
+              </div>
+
+              <div>
+                <label for="">Qtd de encontros</label>
+                <input type="text" class="inputFormMent" />
               </div>
             </div>
 

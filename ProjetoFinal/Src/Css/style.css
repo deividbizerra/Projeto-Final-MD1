@@ -319,7 +319,7 @@ input[type="password"] {
   background-color: #482d83;
   font-weight: 400;
   padding: 10px;
- 
+
   color: white;
 }
 .table-th-d {
@@ -330,8 +330,7 @@ input[type="password"] {
 }
 .tabelaMentores td {
   padding: 30px 0 0 5px;
-  
-  
+
   font-size: 16px;
 }
 
@@ -374,11 +373,12 @@ input[type="password"] {
   display: flex;
   gap: 27px;
 }
-.containerFomr label {
+label {
   color: #757575;
 }
 
-.inputName , .nameMentores {
+.inputName,
+.nameMentores {
   text-transform: capitalize;
 }
 .inputFormMent {
@@ -400,15 +400,15 @@ input[type="password"] {
   color: white;
 }
 
-.inputsMentoria{
+.inputsMentoria {
   width: 35%;
 }
 
-#checkboxStatus{
+#checkboxStatus {
   display: none;
 }
 
-.switch{
+.switch {
   position: relative;
   background-color: red;
   width: 50px;
@@ -417,45 +417,56 @@ input[type="password"] {
   display: flex;
   align-items: center;
   padding: 5px;
-  transition: all .5s ease-in-out;
+  transition: all 0.5s ease-in-out;
   cursor: pointer;
 }
 
-.slider{
+.slider {
   position: absolute;
   background-color: white;
   border-radius: 50%;
   width: 20px;
   height: 20px;
-  transition: all .5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
-#checkboxStatus:checked ~ .switch{
+#checkboxStatus:checked ~ .switch {
   background-color: #00c247;
 }
 
-.containerChackBox label{
-  color: #757575;;
+.containerChackBox label {
+  color: #757575;
 }
 
-#checkboxStatus:checked ~ .switch .slider{
+#checkboxStatus:checked ~ .switch .slider {
   transform: translateX(20px);
 }
-.containerChackBox{
+.containerChackBox {
   margin-top: 20px;
-
 }
-.switchCheck{
+.switchCheck {
   display: flex;
   gap: 8px;
 }
 
-
 .status-ativo {
-  color: #00C247;
+  color: #00c247;
 }
 
 .status-inativo {
-  color: #FF3333;
+  color: #ff3333;
 }
 
+.containerInputs {
+  display: flex;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.tagturma {
+  margin-top: 32px;
+  color: #482d83;
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 28px;
+}
