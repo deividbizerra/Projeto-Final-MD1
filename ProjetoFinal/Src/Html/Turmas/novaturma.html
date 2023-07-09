@@ -21,7 +21,7 @@
       crossorigin="anonymous"
     />
 
-    <!-- <script src="../../JS/Mentorias JS/novaMentoria.js" defer></script> -->
+    <script src="../../JS/Turmas JS/novaturma.js" defer></script>
   </head>
   <body>
     <!-- MENU ASIDER -->
@@ -82,7 +82,7 @@
         <span class="dadosMentor">Dados</span>
         <hr />
         <section class="cadastroMentores">
-          <form action="" class="formMentorias" id="formMentorias">
+          <form action="" class="formNovaTurma" id="formNovaTurma">
             <div class="containerFomr">
               <div class="inputsMentoria">
                 <label for="nome">Mentoria:</label>
@@ -108,12 +108,12 @@
             <div class="containerInputs">
               <div>
                 <label label for="status">Data de inicio:</label>
-                <input type="date" class="inputFormMent" />
+                <input type="date" class="inputFormMent" name="dataInicio" />
               </div>
 
               <div>
                 <label label for="status">Dia da semana:</label>
-                <select name="" id="" class="inputFormMent">
+                <select name="diasDaSemana" id="diasDaSemana" class="inputFormMent">
                   <option value="Segunda-feira">Segunda-feira</option>
                   <option value="Terça-feira">Terça-feira</option>
                   <option value="Terça-feira">Quarta-feira</option>
@@ -124,12 +124,12 @@
 
               <div>
                 <label label for="status">Horario de inicio:</label>
-                <input type="text" class="inputFormMent" />
+                <input type="text" class="inputFormMent" name="horarioInicio"/>
               </div>
 
               <div>
                 <label label for="status">Hora de fim</label>
-                <input type="text" class="inputFormMent" />
+                <input type="text" class="inputFormMent" name="horarioFim" />
               </div>
             </div>
 
@@ -140,17 +140,17 @@
             <div class="containerInputs">
               <div>
                 <label for="">Turma</label>
-                <input type="text" class="inputFormMent" />
+                <input type="text" class="inputFormMent" name="turma"/>
               </div>
 
               <div>
                 <label for="">Link da aula</label>
-                <input type="text" class="inputFormMent" />
+                <input type="text" class="inputFormMent" name="linkAula"/>
               </div>
 
               <div>
                 <label for="">Qtd de encontros</label>
-                <input type="text" class="inputFormMent" />
+                <input type="text" class="inputFormMent" name="qtdEncontro" />
               </div>
             </div>
 

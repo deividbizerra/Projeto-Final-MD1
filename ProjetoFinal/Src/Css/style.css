@@ -288,6 +288,7 @@ input[type="password"] {
   display: flex;
   align-items: center;
   gap: 15px;
+  width: 205px;
 }
 
 .main-conteudo .inputSearch {
@@ -469,4 +470,10 @@ label {
   font-size: 20px;
   font-weight: 400;
   margin-bottom: 28px;
+}
+
+.fa-solid {
+  font-size: 20px;
+  color: #482d83;
+  cursor: pointer;
 }
