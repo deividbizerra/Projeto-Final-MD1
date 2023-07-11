@@ -41,36 +41,6 @@
         "id": 2
       },
       "id": 2
-    },
-    {
-      "titulo": "Gerenciamento de estados globais no ReactJS com Typescript",
-      "status": "Ativo",
-      "mentor": {
-        "name": "paola oliveira",
-        "email": "paola@gmail.com",
-        "id": 3
-      },
-      "id": 3
-    },
-    {
-      "titulo": "Gerenciamento de estados globais no ReactJS com Typescript",
-      "status": "Ativo",
-      "mentor": {
-        "name": "ana maria",
-        "email": "anamaria@gmail.com",
-        "id": 4
-      },
-      "id": 4
-    },
-    {
-      "titulo": "Gerenciamento de estados globais no ReactJS com Typescript",
-      "status": "Ativo",
-      "mentor": {
-        "name": "pedro",
-        "email": "pedro@gmail.com",
-        "id": 6
-      },
-      "id": 6
     }
   ],
   "turmas": [
@@ -101,7 +71,28 @@
       "linkAula": "www.amazon.con",
       "dataInicio": "2023-07-11",
       "id": 2
+    },
+    {
+      "turma": "Turma I",
+      "mentor": "pedro",
+      "mentoria": "Gerenciamento de estados globais no ReactJS com Typescript",
+      "diaSemana": "Segunda-feira",
+      "horario": {
+        "horaInicio": "19hr",
+        "horarioFim": "23hr"
+      },
+      "encontros": "8",
+      "linkAula": "almdoakodka",
+      "dataInicio": "2023-07-11",
+      "id": 3
     }
   ],
-  "alunos": []
+  "alunos": [
+    {
+      "nome": "Deivid souza bizerra",
+      "email": "deivid@gmail.com",
+      "turma": "Turma I",
+      "id": 1
+    }
+  ]
 }

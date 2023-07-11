@@ -1,17 +1,6 @@
 // Seleciona o formulário pelo seu ID
 const formNovaTurma = document.querySelector("#formNovaTurma");
 
-// Função assíncrona para buscar um mentor pelo ID
-const buscarMentoresId = async (id) => {
-  if (id == null) {
-    return false;
-  }
-
-  const response = await fetch(`http://localhost:3000/mentores/${id}`);
-  const mentoresJson = await response.json();
-  return mentoresJson;
-};
-
 // Função assíncrona para buscar todos os mentores
 const buscarMentores = async () => {
   const response = await fetch(`http://localhost:3000/mentores`);

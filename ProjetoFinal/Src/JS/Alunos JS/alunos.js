@@ -25,7 +25,7 @@ const mostrarAlunos = (dados) => {
           <td class="inputName">${dados.turma}</td>
           <td>${dados.email}</td>
           <td class="icones">
-            <i class="fas fa-edit iMentorEditar" onclick="editarMentoria(${dados.id})"></i>
+            <i class="fas fa-edit iMentorEditar" onclick="editarAluno(${dados.id})"></i>
             <i class="fas fa-trash iMentorExcluir" onclick="deletAluno(${dados.id})"></i>
           </td>
         </tr>
