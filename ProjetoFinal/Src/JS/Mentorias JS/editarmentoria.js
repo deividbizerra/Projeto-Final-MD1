@@ -123,5 +123,6 @@ formulario.addEventListener("submit", async (e) => {
 });
 
 // Carrega os dados da mentoria a ser editada e as opções de mentores no carregamento da página
-carregarDadosEditar();
 adicionarSelect();
+carregarDadosEditar();
+

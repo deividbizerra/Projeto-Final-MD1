@@ -14,7 +14,7 @@ const buscarTumar = async () => {
 
 // Função para redirecionar para a página de edição de uma turma
 const editarTuma = (id) => {
-  window.location = `editarmturma.html?id=${id}`;
+  window.location = `../Turmas/editarturma.html?id=${id}`;
 };
 
 // Função para exibir as turmas na tabela
@@ -30,14 +30,14 @@ const mostrarTurma = (dados) => {
     tbody.innerHTML += `
         <tr>
           <td class="nameMentores">${dados.turma}</td>
-          <td>${dados.name}</td>
-          <td>${dados.mentoria}</td>
+          <td class="inputName">${dados.mentor}</td>
+          <td class="inputName">${dados.mentoria}</td>
           <td>${dataFormatada}</td>
           <td>${dados.diaSemana}</td>
           <td><span>${dados.horario.horaInicio}</span> - <span>${dados.horario.horarioFim}</span></td>
           <td>${dados.encontros}/10</td>
           <td class="icones">
-            <i class="fas fa-edit iMentorEditar" onclick="editarMentoria(${dados.id})"></i>
+            <i class="fas fa-edit iMentorEditar" onclick="editarTuma(${dados.id})"></i>
             <i class="fas fa-trash iMentorExcluir" onclick="deletTurma(${dados.id})"></i>
           </td>
         </tr>
@@ -57,6 +57,7 @@ const deletTurma = async (turmaId) => {
         "Content-Type": "application/json",
       },
     });
+    buscarTumar();
   } catch (erro) {
     console.log(erro);
   }

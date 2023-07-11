@@ -119,7 +119,7 @@ formNovaTurma.addEventListener("submit", async (e) => {
     // Cria um objeto com os valores dos campos do formulário
     const turmas = {
       turma,
-      name: mentorName,
+      mentor: mentorName,
       mentoria: mentoriaName,
       diaSemana: diasDaSemana,
       horario: {
@@ -137,5 +137,6 @@ formNovaTurma.addEventListener("submit", async (e) => {
 });
 
 // Chama as funções para carregar os selects
-carregarSelectMentoria();
 carregarSelect();
+carregarSelectMentoria();
+

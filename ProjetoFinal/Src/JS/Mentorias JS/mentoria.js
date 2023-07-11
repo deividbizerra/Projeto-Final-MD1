@@ -28,7 +28,7 @@ const mostrarMentorias = (dados) => {
     tbody.innerHTML += `
     <tr>
           <td class="nameMentores">${dados.titulo}</td>
-          <td>${dados.mentor.name}</td>
+          <td class="inputName">${dados.mentor.name}</td>
           <td id="status" class="status ${
             dados.status === "Ativo" ? "status-ativo" : "status-inativo"
           }">${dados.status}</td>
@@ -45,7 +45,8 @@ const mostrarMentorias = (dados) => {
   });
 };
 
-buscarMentorias(); // Chama a função para buscar e exibir as mentorias
+
+buscarMentorias();// Chama a função para buscar e exibir as mentorias
 
 // Função para deletar uma mentoria
 const deleMentoria = async (mentoriaId) => {
@@ -56,6 +57,7 @@ const deleMentoria = async (mentoriaId) => {
         "Content-Type": "application/json",
       },
     });
+    buscarMentorias()
   } catch (erro) {
     console.log(erro);
   }
