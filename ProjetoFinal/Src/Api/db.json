@@ -19,6 +19,11 @@
       "name": "pedro",
       "email": "pedro@gmail.com",
       "id": 6
+    },
+    {
+      "name": "deivid souza bizerra",
+      "email": "deivid@gmail.com",
+      "id": 7
     }
   ],
   "mentorias": [
@@ -41,6 +46,16 @@
         "id": 2
       },
       "id": 2
+    },
+    {
+      "titulo": "java script",
+      "status": "Ativo",
+      "mentor": {
+        "name": "deivid souza bizerra",
+        "email": "deivid@gmail.com",
+        "id": 7
+      },
+      "id": 3
     }
   ],
   "turmas": [
@@ -85,6 +100,20 @@
       "linkAula": "almdoakodka",
       "dataInicio": "2023-07-11",
       "id": 3
+    },
+    {
+      "turma": "Tuma 06",
+      "mentor": "deivid souza bizerra",
+      "mentoria": "java script",
+      "diaSemana": "Terça-feira",
+      "horario": {
+        "horaInicio": "19hr",
+        "horarioFim": "23hr"
+      },
+      "encontros": "8",
+      "linkAula": "almdoakodka",
+      "dataInicio": "2023-07-13",
+      "id": 4
     }
   ],
   "alunos": [
@@ -93,6 +122,26 @@
       "email": "deivid@gmail.com",
       "turma": "Turma I",
       "id": 1
+    }
+  ],
+  "usuarios": [
+    {
+      "nome": "Deivid Souza Bizerra",
+      "senha": "123159",
+      "email": "dededed@gmail.com",
+      "id": 1
+    },
+    {
+      "nome": "marcos santos",
+      "senha": "1234",
+      "email": "marcos@gmail.com",
+      "id": 2
+    },
+    {
+      "nome": "juliano",
+      "senha": "123",
+      "email": "juliano@gmail.com",
+      "id": 3
     }
   ]
 }

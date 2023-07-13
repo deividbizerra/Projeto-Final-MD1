@@ -7,6 +7,29 @@
 }
 
 /* STYLE AREA DE LOGIN */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.bodyLogin {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tituloForm {
+  margin: 40px 0px 16px 0px;
+  font-family: "Sora", sans-serif;
+  font-size: 17px;
+}
+
 .tituloForm p {
   margin: 0;
   color: #424242;
@@ -18,94 +41,66 @@
 .tituloForm h2 {
   font-weight: 700;
   line-height: 50.4px;
-}
-
-.tituloForm {
-  font-family: "Sora", sans-serif;
+  font-size: 27px;
 }
 
 .container {
-  display: flex;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
-  align-items: center;
-}
-
-.container-form {
+  background-color: whitesmoke;
+  padding: 6px;
+  width: 450px;
+  height: 565px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 6px;
-  width: 420px;
-  height: 445px;
   position: relative;
   overflow: hidden;
   border-radius: 10px;
   box-shadow: 0 0 20px 0 darkgray;
-  background: #fdfdfd;
+  align-items: center;
 }
 
-.login form label {
-  display: flex;
+.container form {
+  position: absolute;
+  margin-top: 68px;
+  transition: 0.5s;
+  width: 300px;
+  height: 400px;
 }
 
-.login form {
+.buttonsForm {
+  margin-top: 25px;
   position: relative;
-  margin-top: 20px;
-  font-family: "Poppins", sans-serif;
+  border-radius: 30px;
+  box-shadow: 0 0 7px 0 blueviolet;
 }
 
-.login input[type="email"],
-input[type="password"] {
-  border: 1px solid rgb(199, 199, 199);
-  margin-top: 0px;
-  padding: 8px 0 8px 35px;
-  outline: none;
-  width: 100%;
+.buttonsForm button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
   position: relative;
-  font-size: 16px;
-  color: #212121;
+  padding: 10px 26px;
 }
 
-.labelLogin {
-  margin-top: 20px;
-  font-size: 14px;
+.btnColor {
+  position: absolute;
+  width: 108px;
+  height: 100%;
+  background: linear-gradient(#482d83, #9b53ec);
+  border-radius: 30px;
+  transition: 0.3s;
 }
+
+.validacao {
+  margin-top: 10px;
+  display: none;
+  color: red;
+}
+
 .labelcheck {
   font-size: 14px;
   font-weight: 600;
   line-height: 24px;
-}
-.login button {
-  border: none;
-  width: 100%;
-  margin-top: 25px;
-  padding: 10px;
-  background-color: #482d83;
-  color: white;
-  outline: none;
-  transition: all 0.4s;
-}
-
-.login button:hover {
-  background-color: #1a1033;
-}
-
-.inputsForm {
-  border-radius: 20px;
-}
-
-.login i {
-  position: absolute;
-  left: 0px;
-  padding: 10px 10px;
-  color: gray;
-}
-
-.icon {
-  margin-top: 4px;
+  color: #616161;
 }
 
 .esqSenha {
@@ -113,6 +108,67 @@ input[type="password"] {
   font-size: 14px;
   color: #616161;
   text-decoration: none;
+}
+
+.inputsLogin {
+  border: 1px solid rgb(199, 199, 199);
+  margin-bottom: 20px;
+  border-radius: 60px;
+  padding: 8px 0 8px 35px;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  color: #212121;
+}
+
+button[type="submit"] {
+  background: #482d83;
+  color: white;
+  border-radius: 30px;
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 10px;
+  margin-top: 28px;
+  cursor: pointer;
+}
+
+.divChek {
+  margin: 10px 0 0 5px;
+  width: 80%;
+  font-size: 13px;
+}
+
+#singup {
+  left: 450px;
+}
+
+.container i {
+  position: absolute;
+  left: 0;
+  padding: 10px 10px;
+  color: gray;
+  font-size: 20px;
+}
+.iEmail {
+  top: 163px;
+}
+.iEmailCadas{
+  top: 249px;
+}
+.iSenha {
+  top: 248px;
+}
+
+.iSenha2 {
+  top: 247px;
+}
+.iSenha3 {
+  top: 333px;
+}
+
+#login {
+  color: white;
 }
 
 .sucesso {
@@ -475,5 +531,4 @@ label {
 .fa-solid {
   font-size: 20px;
   color: #482d83;
-  cursor: pointer;
 }
