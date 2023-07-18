@@ -1,7 +1,7 @@
 {
   "mentores": [
     {
-      "name": "juliana amaral",
+      "name": "juliana amaral santos",
       "email": "juliana@gmail.com",
       "id": 1
     },
@@ -14,11 +14,6 @@
       "name": "ana maria",
       "email": "anamaria@gmail.com",
       "id": 4
-    },
-    {
-      "name": "pedro",
-      "email": "pedro@gmail.com",
-      "id": 6
     },
     {
       "name": "deivid souza bizerra",
@@ -46,16 +41,6 @@
         "id": 2
       },
       "id": 2
-    },
-    {
-      "titulo": "java script",
-      "status": "Ativo",
-      "mentor": {
-        "name": "deivid souza bizerra",
-        "email": "deivid@gmail.com",
-        "id": 7
-      },
-      "id": 3
     }
   ],
   "turmas": [
@@ -104,7 +89,7 @@
     {
       "turma": "Tuma 06",
       "mentor": "deivid souza bizerra",
-      "mentoria": "java script",
+      "mentoria": "Gerenciamento de estados globais no ReactJS com Typescript",
       "diaSemana": "Terça-feira",
       "horario": {
         "horaInicio": "19hr",
@@ -114,34 +99,42 @@
       "linkAula": "almdoakodka",
       "dataInicio": "2023-07-13",
       "id": 4
+    },
+    {
+      "turma": "tuma 01",
+      "mentor": "juliana amaral",
+      "mentoria": "Gerenciamento de estados globais no ReactJS com Typescript",
+      "diaSemana": "Segunda-feira",
+      "horario": {
+        "horaInicio": "19hr",
+        "horarioFim": "22hr"
+      },
+      "encontros": "3",
+      "linkAula": "almdoakodka",
+      "dataInicio": "2023-07-18",
+      "id": 5
     }
   ],
   "alunos": [
     {
-      "nome": "Deivid souza bizerra",
+      "nome": "Deivid",
       "email": "deivid@gmail.com",
-      "turma": "Turma I",
+      "turma": "Tuma 06",
       "id": 1
+    },
+    {
+      "nome": "lucas",
+      "email": "lucas@gmail.com",
+      "turma": "Turma k",
+      "id": 2
     }
   ],
   "usuarios": [
     {
-      "nome": "Deivid Souza Bizerra",
-      "senha": "123159",
-      "email": "dededed@gmail.com",
-      "id": 1
-    },
-    {
-      "nome": "marcos santos",
-      "senha": "1234",
-      "email": "marcos@gmail.com",
-      "id": 2
-    },
-    {
-      "nome": "juliano",
-      "senha": "123",
-      "email": "juliano@gmail.com",
-      "id": 3
+      "nome": "admin",
+      "senha": "admin",
+      "email": "admin@gmail.com",
+      "id": 8
     }
   ]
 }

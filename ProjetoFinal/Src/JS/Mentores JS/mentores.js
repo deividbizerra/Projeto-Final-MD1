@@ -1,16 +1,62 @@
-// Seleciona os elemento do Html através do seu ID
-const tbody = document.querySelector("#tbody");
-const formMentores = document.querySelector("#formMentores");
-const Erroname = document.querySelector("#nome");
-const Erroemail = document.querySelector("#email");
-const inputSearch = document.getElementById("inputSearch");
-const checkboxDark = document.getElementById("checkboxDark");
+// Seleciona os elementos do HTML através dos seus IDs
+const tbody = document.querySelector("#tbody"); // Tabela onde os mentores serão exibidos
+const inputSearch = document.getElementById("inputSearch"); // Input de busca
 
-// Função assíncrona para buscar os mentores
-const buscarMentores = async () => {
+// Variáveis de controle para ordenação dos mentores
+let ordenacaoNome = "asc"; // Variável para controlar a ordenação por nome (ascendente ou descendente)
+let ordenacaoEmail = "asc"; // Variável para controlar a ordenação por email (ascendente ou descendente)
+
+// Função para alternar a ordenação por nome
+const ordenarPorNome = () => {
+  if (ordenacaoNome === "asc") {
+    ordenacaoNome = "desc"; // Se a ordenação atual for ascendente, muda para descendente
+  } else {
+    ordenacaoNome = "asc"; // Caso contrário, muda para ascendente
+  }
+  atualizarIconeOrdenacao("setaNome", ordenacaoNome); // Primeiro atualiza o ícone de ordenação
+  buscarMentores(null, ordenacaoNome); // Em seguida, chama a função de busca com a nova ordenação
+};
+
+// Função para alternar a ordenação por email
+const ordenarPorEmail = () => {
+  if (ordenacaoEmail === "asc") {
+    ordenacaoEmail = "desc"; // Se a ordenação atual for ascendente, muda para descendente
+  } else {
+    ordenacaoEmail = "asc"; // Caso contrário, muda para ascendente
+  }
+  atualizarIconeOrdenacao("setaEmail", ordenacaoEmail); // Primeiro atualiza o ícone de ordenação
+  buscarMentores(null, ordenacaoEmail); // Em seguida, chama a função de busca com a nova ordenação
+};
+
+// Função para atualizar o ícone de ordenação na interface
+const atualizarIconeOrdenacao = (iconeId, ordenacao) => {
+  const icone = document.getElementById(iconeId);
+  icone.classList.remove("fa-sort", "fa-sort-up", "fa-sort-down");
+
+  if (ordenacao === "asc") {
+    icone.classList.add("fa-sort-up"); // Adiciona a classe do ícone de ordenação ascendente
+  } else {
+    icone.classList.add("fa-sort-down"); // Adiciona a classe do ícone de ordenação descendente
+  }
+};
+
+// Função assíncrona para buscar os mentores na API
+const buscarMentores = async (pesquisa = null, ordenacao = "asc") => {
+  let textopesquisa = "";
+
+  if (pesquisa) {
+    textopesquisa += `?q=${pesquisa}`; // Se houver texto de pesquisa, adiciona na URL
+  }
+
+  if (ordenacao === "desc") {
+    textopesquisa += textopesquisa ? "&_sort=name,-1" : "?_sort=name,-1"; // Adiciona a ordenação na URL (ascendente ou descendente)
+  }
+
   try {
     // Faz uma requisição na API para obter os dados dos mentores
-    const response = await fetch("http://localhost:3000/mentores");
+    const response = await fetch(
+      `http://localhost:3000/mentores${textopesquisa}`
+    );
     // Converte a resposta em JSON
     const mentorJson = await response.json();
     // Chama a função para exibir os mentores na tabela
@@ -22,7 +68,7 @@ const buscarMentores = async () => {
 
 // Função para exibir os mentores na tabela
 const mostrarMentores = (dados) => {
-  tbody.innerHTML = "";
+  tbody.innerHTML = ""; // Limpa a tabela antes de exibir os mentores
 
   dados.forEach((dados) => {
     // Cria uma nova linha na tabela com os dados do mentor
@@ -33,8 +79,8 @@ const mostrarMentores = (dados) => {
           <td class="nameMentores">${dados.name}</td>
           <td>${dados.email}</td>
           <td class="icones">
-            <i class="fas fa-edit iMentorEditar" onclick="editarMentores(${dados.id})"></i>
-            <i class="fas fa-trash iMentorExcluir" onclick="deleMentor(${dados.id})"></i>
+            <i class="fas fa-edit iEditar" onclick="editarMentores(${dados.id})"></i>
+            <i class="fas fa-trash iExcluir" onclick="deleMentor(${dados.id})"></i>
           </td>
         </tr>
       `;
@@ -73,74 +119,12 @@ const novoMentor = () => {
   window.location = "../Mentores/novomento.html";
 };
 
-// Função para cadastrar um novo mentor
-const cadastrarMentores = async (mentores) => {
-  try {
-    // Faz uma requisição POST para a API para cadastrar o mentor
-    await fetch(`http://localhost:3000/mentores`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(mentores),
-    });
-
-    // Redireciona o usuário para a página "../mentores.html" após o cadastro
-    window.location = "../Mentores/mentores.html";
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const pesquisar = () => {
-  const digitado = inputSearch.value.toLowerCase();
-  // Obtém o valor digitado no input de busca em letras minúsculas e armazena na variável 'digitado'
-
-  const itens = tbody.getElementsByTagName("tr");
-  // Obtém todos os elementos <tr> dentro do elemento <tbody> e armazena na variável 'itens'
-
-  for (let posicao in itens) {
-    // Itera sobre os elementos 'itens' usando a variável 'posicao'
-
-    if (true === isNaN(posicao)) {
-      continue;
-      // Verifica se 'posicao' não é um número (índice inválido) e pula para a próxima iteração
-    }
-
-    let conteudoTabela = itens[posicao].innerHTML.toLowerCase();
-    // Obtém o conteúdo HTML do elemento <tr> atual em letras minúsculas e armazena na variável 'conteudoTabela'
-
-    if (true === conteudoTabela.includes(digitado)) {
-      itens[posicao].style.display = "";
-      // Se o valor digitado estiver presente no conteúdo da tabela, mostra o elemento <tr>
-    } else {
-      itens[posicao].style.display = "none";
-      // Caso contrário, oculta o elemento <tr>
-    }
-  }
-};
-
-// Adiciona um listener de evento para o evento "submit" do formulário "formMentores"
-formMentores.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  // Obtém os valores dos campos de nome e e-mail do formulário
-  const name = formMentores.elements["nome"].value;
-  const email = formMentores.elements["email"].value;
-
-  if (name && email !== "") {
-    // Cria um objeto "mentores" com os valores do nome e e-mail
-    const mentores = {
-      name,
-      email,
-    };
-
-    // Chama a função "cadastrarMentores" passando o objeto "mentores" como argumento
-    cadastrarMentores(mentores);
-  } else {
-    // Caso algum dos campos esteja vazio, adiciona a classe "invalido" para exibir um estilo de erro
-    Erroname.classList.add("invalido");
-    Erroemail.classList.add("invalido");
+// Listener para o evento de tecla pressionada no input de busca
+inputSearch.addEventListener("keyup", (e) => {
+  const texto = inputSearch.value;
+  if (texto === "") {
+    buscarMentores();
+  } else if (e.key === "Enter") {
+    buscarMentores(texto);
   }
 });

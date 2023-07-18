@@ -2,9 +2,16 @@
 const tbody = document.querySelector("tbody");
 
 // Função assíncrona para buscar as turmas
-const buscarTumar = async () => {
+const buscarTumar = async (pesquisa = null) => {
+
+  let textopesquisa = "";
+
+  if (pesquisa) {
+    textopesquisa = `?q=${pesquisa}`;
+  }
+
   try {
-    const response = await fetch("http://localhost:3000/turmas");
+    const response = await fetch(`http://localhost:3000/turmas${textopesquisa}`);
     const turmaJson = await response.json();
     mostrarTurma(turmaJson);
   } catch (erro) {
@@ -37,8 +44,8 @@ const mostrarTurma = (dados) => {
           <td><span>${dados.horario.horaInicio}</span> - <span>${dados.horario.horarioFim}</span></td>
           <td>${dados.encontros}/10</td>
           <td class="icones">
-            <i class="fas fa-edit iMentorEditar" onclick="editarTuma(${dados.id})"></i>
-            <i class="fas fa-trash iMentorExcluir" onclick="deletTurma(${dados.id})"></i>
+            <i class="fas fa-edit iEditar" onclick="editarTuma(${dados.id})"></i>
+            <i class="fas fa-trash iExcluir" onclick="deletTurma(${dados.id})"></i>
           </td>
         </tr>
         `;
@@ -69,30 +76,12 @@ const novaTurma = () => {
 };
 
 // Função para pesquisar as turmas
-const pesquisar = () => {
-  const digitado = inputSearch.value.toLowerCase();
-  // Obtém o valor digitado no input de busca em letras minúsculas e armazena na variável 'digitado'
-
-  const itens = tbody.getElementsByTagName("tr");
-  // Obtém todos os elementos <tr> dentro do elemento <tbody> e armazena na variável 'itens'
-
-  for (let posicao in itens) {
-    // Itera sobre os elementos 'itens' usando a variável 'posicao'
-
-    if (true === isNaN(posicao)) {
-      continue;
-      // Verifica se 'posicao' não é um número (índice inválido) e pula para a próxima iteração
-    }
-
-    let conteudoTabela = itens[posicao].innerHTML.toLowerCase();
-    // Obtém o conteúdo HTML do elemento <tr> atual em letras minúsculas e armazena na variável 'conteudoTabela'
-
-    if (true === conteudoTabela.includes(digitado)) {
-      itens[posicao].style.display = "";
-      // Se o valor digitado estiver presente no conteúdo da tabela, mostra o elemento <tr>
-    } else {
-      itens[posicao].style.display = "none";
-      // Caso contrário, oculta o elemento <tr>
-    }
+inputSearch.addEventListener("keyup", (e) => {
+  const texto = inputSearch.value;
+  if (texto === "") {
+    buscarTumar();
+  } else if (e.key === "Enter") {
+    buscarTumar(texto);
   }
-};
+});
+

@@ -4,9 +4,16 @@ const formMentores = document.querySelector("#formMentorias");
 let mentoriaId = null;
 
 // Função para buscar todas as mentorias
-const buscarMentorias = async () => {
+const buscarMentorias = async (pesquisa = null) => {
+
+  let textopesquisa = "";
+
+  if (pesquisa) {
+    textopesquisa = `?q=${pesquisa}`;
+  }
+
   try {
-    const response = await fetch("http://localhost:3000/mentorias");
+    const response = await fetch(`http://localhost:3000/mentorias${textopesquisa}`);
     const mentoriasJson = await response.json();
 
     mostrarMentorias(mentoriasJson);
@@ -33,10 +40,10 @@ const mostrarMentorias = (dados) => {
             dados.status === "Ativo" ? "status-ativo" : "status-inativo"
           }">${dados.status}</td>
           <td class="icones">
-            <i class="fas fa-edit iMentorEditar" onclick="editarMentoria(${
+            <i class="fas fa-edit iEditar" onclick="editarMentoria(${
               dados.id
             })"></i>
-            <i class="fas fa-trash iMentorExcluir" onclick="deleMentoria(${
+            <i class="fas fa-trash iExcluir" onclick="deleMentoria(${
               dados.id
             })"></i>
           </td>
@@ -68,30 +75,11 @@ const novaMentoria = () => {
   window.location = "../Mentorias/novamentoria.html";
 };
 
-const pesquisar = () => {
-  const digitado = inputSearch.value.toLowerCase();
-  // Obtém o valor digitado no input de busca em letras minúsculas e armazena na variável 'digitado'
-
-  const itens = tbody.getElementsByTagName("tr");
-  // Obtém todos os elementos <tr> dentro do elemento <tbody> e armazena na variável 'itens'
-
-  for (let posicao in itens) {
-    // Itera sobre os elementos 'itens' usando a variável 'posicao'
-
-    if (true === isNaN(posicao)) {
-      continue;
-      // Verifica se 'posicao' não é um número (índice inválido) e pula para a próxima iteração
-    }
-
-    let conteudoTabela = itens[posicao].innerHTML.toLowerCase();
-    // Obtém o conteúdo HTML do elemento <tr> atual em letras minúsculas e armazena na variável 'conteudoTabela'
-
-    if (true === conteudoTabela.includes(digitado)) {
-      itens[posicao].style.display = "";
-      // Se o valor digitado estiver presente no conteúdo da tabela, mostra o elemento <tr>
-    } else {
-      itens[posicao].style.display = "none";
-      // Caso contrário, oculta o elemento <tr>
-    }
+inputSearch.addEventListener("keyup", (e) => {
+  const texto = inputSearch.value;
+  if (texto === "") {
+    buscarMentorias();
+  } else if (e.key === "Enter") {
+    buscarMentorias(texto);
   }
-};
+});
