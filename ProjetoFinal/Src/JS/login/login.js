@@ -116,7 +116,9 @@ const cadastrarUsuario = async (usuarios) => {
 const buscarUsuarios = async () => {
   try {
     // Faz uma requisição GET para a API para buscar os usuários
-    const response = await fetch(` https://api-projetofinal-arnia-md1.onrender.com/usuarios`);
+    const response = await fetch(
+      ` https://api-projetofinal-arnia-md1.onrender.com/usuarios`
+    );
     const usuariosJson = await response.json();
     return usuariosJson;
   } catch (error) {
@@ -180,6 +182,6 @@ singup.addEventListener("submit", (e) => {
       email,
     };
     cadastrarUsuario(usuarios);
-    window.location("index.html");
+    window.location = "index.html";
   }
 });
