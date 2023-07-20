@@ -129,7 +129,7 @@ button[type="submit"] {
   border: none;
   outline: none;
   padding: 10px;
-  margin-top: 28px;
+  
   cursor: pointer;
 }
 
@@ -261,7 +261,7 @@ button[type="submit"] {
 /* STYLE MAIN */
 .container-main {
   width: 100%;
-  height: 100vh;
+  margin-bottom: 40px;
 }
 
 .perfil {
@@ -363,7 +363,7 @@ button[type="submit"] {
 
 .search-container i {
   position: absolute;
-  top: 40%;
+  top: 50%;
   right: 10px;
   transform: translateY(-50%);
   font-size: 18px;
@@ -391,7 +391,7 @@ button[type="submit"] {
 }
 
 .tabela table {
-  margin-top: 40px;
+  margin-top: 10px;
   width: 100%;
   margin-bottom: 1rem;
   font-family: "Poppins", sans-serif;
@@ -534,4 +534,25 @@ label {
 .fa-solid {
   font-size: 20px;
   color: #482d83;
+}
+
+.btnPaginacao {
+  transition: 0.5s;
+  padding: 4px;
+  border: 1px solid #482d8359;
+  border-radius: 3px;
+  margin: 45px 4px 0px;
+  font-size: 12px;
+}
+
+
+.paginasControl{
+  display: flex;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btnPaginacao:hover {
+  background-color: #482d83;
+  color: white;
 }

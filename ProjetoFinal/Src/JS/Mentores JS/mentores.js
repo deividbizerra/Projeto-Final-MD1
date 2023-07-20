@@ -41,17 +41,25 @@ const atualizarIconeOrdenacao = (iconeId, ordenacao) => {
 };
 
 // Função assíncrona para buscar os mentores na API
-const buscarMentores = async (pesquisa = null, ordenacao = "asc") => {
+const buscarMentores = async (
+  pesquisa = null,
+  page = 1,
+  limit = 5
+) => {
   let textopesquisa = "";
 
   if (pesquisa) {
-    textopesquisa += `?q=${pesquisa}`; // Se houver texto de pesquisa, adiciona na URL
+    textopesquisa += `?q=${pesquisa}`;
   }
 
-  if (ordenacao === "desc") {
-    textopesquisa += textopesquisa ? "&_sort=name,-1" : "?_sort=name,-1"; // Adiciona a ordenação na URL (ascendente ou descendente)
+  if (ordenacaoNome === "desc") {
+    textopesquisa += textopesquisa ? "&_sort=name,-1" : "?_sort=name,-1";
+  }else if(ordenacaoEmail === "desc"){
+    textopesquisa += textopesquisa ? "&_sort=email,-1" : "?_sort=email,-1";
   }
 
+  // Adicione os parâmetros de paginação na URL da requisição
+  textopesquisa += `${textopesquisa ? "&" : "?"}_page=${page}&_limit=${limit}`;
   try {
     // Faz uma requisição na API para obter os dados dos mentores
     const response = await fetch(
@@ -59,33 +67,58 @@ const buscarMentores = async (pesquisa = null, ordenacao = "asc") => {
     );
     // Converte a resposta em JSON
     const mentorJson = await response.json();
-    // Chama a função para exibir os mentores na tabela
-    mostrarMentores(mentorJson);
+
+    // Obtém o total de mentores no cabeçalho da resposta
+    const totalMentores = parseInt(response.headers.get("X-Total-Count"));
+
+    // Chama a função para exibir os mentores na tabela e passa o total de mentores
+    mostrarMentores(mentorJson, totalMentores);
   } catch (error) {
     console.log(error);
   }
 };
 
 // Função para exibir os mentores na tabela
-const mostrarMentores = (dados) => {
-  tbody.innerHTML = ""; // Limpa a tabela antes de exibir os mentores
+const mostrarMentores = (dados, totalMentores) => {
+  tbody.innerHTML = "";
 
   dados.forEach((dados) => {
     // Cria uma nova linha na tabela com os dados do mentor
-    tbody.innerHTML =
-      tbody.innerHTML +
-      `
-        <tr>
-          <td class="nameMentores">${dados.name}</td>
-          <td>${dados.email}</td>
-          <td class="icones">
-            <i class="fas fa-edit iEditar" onclick="editarMentores(${dados.id})"></i>
-            <i class="fas fa-trash iExcluir" onclick="deleMentor(${dados.id})"></i>
-          </td>
-        </tr>
-      `;
+    tbody.innerHTML += `
+      <tr>
+        <td class="nameMentores">${dados.name}</td>
+        <td>${dados.email}</td>
+        <td class="icones">
+          <i class="fas fa-edit iEditar" onclick="editarMentores(${dados.id})"></i>
+          <i class="fas fa-trash iExcluir" onclick="deleMentor(${dados.id})"></i>
+        </td>
+      </tr>
+    `;
   });
+
+  // Exiba os controles de paginação
+  exibirControlesPaginacao(totalMentores);
 };
+
+const exibirControlesPaginacao = (totalMentores) => {
+  const paginationControls = document.getElementById("paginationControls");
+  const totalPages = Math.ceil(totalMentores / 10); // 10 é o número de itens por página
+
+  let paginationHTML = "";
+
+  for (let i = 1; i <= totalPages; i++) {
+    paginationHTML += `
+    <button onclick="mudarPagina(${i})" class="btnPaginacao">${i}</button>
+    `;
+  }
+
+  paginationControls.innerHTML = paginationHTML;
+};
+
+const mudarPagina = (pageNumber) => {
+  buscarMentores(null, pageNumber);
+};
+buscarMentores(null,ordenacaoNome, 1);
 
 // Função para deletar um mentor
 const deleMentor = async (mentorId) => {

@@ -23,7 +23,7 @@
     <script src="../../JS/Mentorias JS/mentoria.js" defer></script>
   </head>
 
-  <body class="dark">
+  <body>
     <!-- MENU ASIDER -->
     <header>
       <aside class="container-aside">
@@ -96,14 +96,14 @@
             <i class="fas fa-plus"></i> Nova Mentoria
           </button>
         </div>
-
+        <div id="paginationControls" class="paginasControl"></div>
         <section class="tabela">
           <table id="table">
             <thead>
               <tr>
-                <th class="table-th-d">Titulo da mentoria</th>
-                <th>Mentor</th>
-                <th>Status</th>
+                <th class="table-th-d">Titulo da mentoria <i id="setaMentoria" class="fas fa-sort"  onclick="ordenarPorMentoria()"></i></th>
+                <th>Mentor <i id="setaNome" class="fas fa-sort"  onclick="ordenarPorNome()"></i></th>
+                <th>Status <i id="setaStatus" class="fas fa-sort"  onclick="ordenarPorStatus()"></i></th>
                 <th class="table-e">Ações</th>
               </tr>
             </thead>
