@@ -3,12 +3,5 @@
   "mentorias": [],
   "turmas": [],
   "alunos": [],
-  "usuarios": [
-    {
-      "nome": "admin",
-      "senha": "admin",
-      "email": "admin@gmail.com",
-      "id": 8
-    }
-  ]
+  "usuarios": []
 }

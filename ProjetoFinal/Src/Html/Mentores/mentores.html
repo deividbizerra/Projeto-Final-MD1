@@ -64,7 +64,10 @@
     <!-- CONTEUDO MAIN -->
     <main class="container-main">
       <div class="perfil">
-        <a href="../../index.html" class="logout-btn" onclick="fazerLogout()"
+        <a
+          href="../../../../../../index.html"
+          class="logout-btn"
+          onclick="fazerLogout()"
           ><i class="fa-solid fa-arrow-right-from-bracket"></i
         ></a>
         <div class="perilImg">
@@ -98,13 +101,27 @@
         </div>
 
         <div id="paginationControls" class="paginasControl"></div>
-        
+
         <section class="tabela">
           <table id="table">
             <thead>
               <tr>
-                <th class="table-th-d">Nome <i id="setaNome" class="fas fa-sort"  onclick="ordenarPorNome()"></i></th>
-                <th >E-mail <i id="setaEmail" class="fas fa-sort" onclick="ordenarPorEmail()"></i></th>
+                <th class="table-th-d">
+                  Nome
+                  <i
+                    id="setaNome"
+                    class="fas fa-sort"
+                    onclick="ordenarPorNome()"
+                  ></i>
+                </th>
+                <th>
+                  E-mail
+                  <i
+                    id="setaEmail"
+                    class="fas fa-sort"
+                    onclick="ordenarPorEmail()"
+                  ></i>
+                </th>
                 <th class="table-e">Ações</th>
               </tr>
             </thead>
