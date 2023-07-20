@@ -99,7 +99,7 @@ formulario.addEventListener("submit", async (e) => {
 const cadastrarUsuario = async (usuarios) => {
   try {
     // Faz uma requisição POST para a API para cadastrar o usuário
-    await fetch(` http://localhost:3000/usuarios`, {
+    await fetch(` https://api-projetofinal-arnia-md1.onrender.com/usuarios`, {
       method: "POST",
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -116,7 +116,7 @@ const cadastrarUsuario = async (usuarios) => {
 const buscarUsuarios = async () => {
   try {
     // Faz uma requisição GET para a API para buscar os usuários
-    const response = await fetch(` http://localhost:3000/usuarios`);
+    const response = await fetch(` https://api-projetofinal-arnia-md1.onrender.com/usuarios`);
     const usuariosJson = await response.json();
     return usuariosJson;
   } catch (error) {
