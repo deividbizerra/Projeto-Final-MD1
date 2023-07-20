@@ -99,7 +99,7 @@ formulario.addEventListener("submit", async (e) => {
 const cadastrarUsuario = async (usuarios) => {
   try {
     // Faz uma requisição POST para a API para cadastrar o usuário
-    await fetch(` https://api-projetofinal-arnia-md1.onrender.com/usuarios`, {
+    await fetch(`https://api-projetofinal-arnia-md1.onrender.com/usuarios`, {
       method: "POST",
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -117,7 +117,7 @@ const buscarUsuarios = async () => {
   try {
     // Faz uma requisição GET para a API para buscar os usuários
     const response = await fetch(
-      ` https://api-projetofinal-arnia-md1.onrender.com/usuarios`
+      `https://api-projetofinal-arnia-md1.onrender.com/usuarios`
     );
     const usuariosJson = await response.json();
     return usuariosJson;
@@ -182,6 +182,9 @@ singup.addEventListener("submit", (e) => {
       email,
     };
     cadastrarUsuario(usuarios);
-    window.location = "index.html";
+    setTimeout(function(){
+      window.location = "index.html";
+    },1000)
+    
   }
 });
