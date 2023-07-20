@@ -3,7 +3,6 @@ const tbody = document.querySelector("tbody");
 
 // Função assíncrona para buscar as turmas
 const buscarTumar = async (pesquisa = null) => {
-
   let textopesquisa = "";
 
   if (pesquisa) {
@@ -11,7 +10,9 @@ const buscarTumar = async (pesquisa = null) => {
   }
 
   try {
-    const response = await fetch(`http://localhost:3000/turmas${textopesquisa}`);
+    const response = await fetch(
+      `https://api-projetofinal-arnia-md1.onrender.com/turmas${textopesquisa}`
+    );
     const turmaJson = await response.json();
     mostrarTurma(turmaJson);
   } catch (erro) {
@@ -58,12 +59,15 @@ buscarTumar();
 // Função assíncrona para deletar uma turma
 const deletTurma = async (turmaId) => {
   try {
-    await fetch(`http://localhost:3000/turmas/${turmaId}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    await fetch(
+      `https://api-projetofinal-arnia-md1.onrender.com/turmas/${turmaId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     buscarTumar();
   } catch (erro) {
     console.log(erro);
@@ -84,4 +88,3 @@ inputSearch.addEventListener("keyup", (e) => {
     buscarTumar(texto);
   }
 });
-

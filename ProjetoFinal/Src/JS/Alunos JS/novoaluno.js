@@ -3,7 +3,9 @@ const formulario = document.getElementById("formAlunos");
 
 // Função assíncrona para buscar todas as turmas
 const buscarTurmas = async () => {
-  const response = await fetch(`http://localhost:3000/turmas`);
+  const response = await fetch(
+    `https://api-projetofinal-arnia-md1.onrender.com/turmas`
+  );
   const turmaJson = await response.json();
   return turmaJson;
 };
@@ -29,7 +31,7 @@ const carregarSelect = async () => {
 const cadastrarNovoAluno = async (aluno) => {
   try {
     // Faz uma requisição POST para a API para cadastrar o novo aluno
-    await fetch(`http://localhost:3000/alunos`, {
+    await fetch(`https://api-projetofinal-arnia-md1.onrender.com/alunos`, {
       method: "POST",
       headers: {
         Accept: "application/json, text/plain, */*",

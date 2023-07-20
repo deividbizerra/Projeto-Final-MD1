@@ -41,11 +41,7 @@ const atualizarIconeOrdenacao = (iconeId, ordenacao) => {
 };
 
 // Função assíncrona para buscar os mentores na API
-const buscarMentores = async (
-  pesquisa = null,
-  page = 1,
-  limit = 5
-) => {
+const buscarMentores = async (pesquisa = null, page = 1, limit = 5) => {
   let textopesquisa = "";
 
   if (pesquisa) {
@@ -54,7 +50,7 @@ const buscarMentores = async (
 
   if (ordenacaoNome === "desc") {
     textopesquisa += textopesquisa ? "&_sort=name,-1" : "?_sort=name,-1";
-  }else if(ordenacaoEmail === "desc"){
+  } else if (ordenacaoEmail === "desc") {
     textopesquisa += textopesquisa ? "&_sort=email,-1" : "?_sort=email,-1";
   }
 
@@ -63,7 +59,7 @@ const buscarMentores = async (
   try {
     // Faz uma requisição na API para obter os dados dos mentores
     const response = await fetch(
-      `http://localhost:3000/mentores${textopesquisa}`
+      `https://api-projetofinal-arnia-md1.onrender.com/mentores${textopesquisa}`
     );
     // Converte a resposta em JSON
     const mentorJson = await response.json();
@@ -118,18 +114,21 @@ const exibirControlesPaginacao = (totalMentores) => {
 const mudarPagina = (pageNumber) => {
   buscarMentores(null, pageNumber);
 };
-buscarMentores(null,ordenacaoNome, 1);
+buscarMentores(null, ordenacaoNome, 1);
 
 // Função para deletar um mentor
 const deleMentor = async (mentorId) => {
   try {
     // Faz uma requisição DELETE para a API, passando o ID do mentor a ser deletado
-    await fetch(`http://localhost:3000/mentores/${mentorId}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    await fetch(
+      `https://api-projetofinal-arnia-md1.onrender.com/mentores/${mentorId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     // Após a deleção do mentor, chama a função "buscarMentores" para atualizar a lista de mentores
     buscarMentores();

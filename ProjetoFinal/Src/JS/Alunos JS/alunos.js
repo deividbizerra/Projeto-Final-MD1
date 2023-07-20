@@ -16,7 +16,7 @@ const buscarAluno = async (pesquisa = null) => {
   try {
     // Faz uma requisição na API para obter os dados dos alunos
     const response = await fetch(
-      `http://localhost:3000/alunos${textopesquisa}`
+      `https://api-projetofinal-arnia-md1.onrender.com/alunos${textopesquisa}`
     );
     // Converte a resposta em JSON
     const alunosJson = await response.json();
@@ -60,12 +60,15 @@ buscarAluno();
 const deletAluno = async (alunoId) => {
   try {
     // Faz uma requisição DELETE para a API, passando o ID do aluno a ser deletado
-    await fetch(`http://localhost:3000/alunos/${alunoId}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    await fetch(
+      `https://api-projetofinal-arnia-md1.onrender.com/alunos/${alunoId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     // Atualiza a lista de alunos após a deleção
     buscarAluno();
   } catch (erro) {

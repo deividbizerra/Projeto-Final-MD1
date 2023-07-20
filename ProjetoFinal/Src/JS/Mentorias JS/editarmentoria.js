@@ -11,7 +11,9 @@ const recuperarId = () => {
 
 // Função para buscar os dados da mentoria na API
 const buscarMentoria = async (id) => {
-  const resposta = await fetch(`http://localhost:3000/mentorias/${id}`);
+  const resposta = await fetch(
+    `https://api-projetofinal-arnia-md1.onrender.com/mentorias/${id}`
+  );
   const autorJson = await resposta.json();
   return autorJson;
 };
@@ -31,18 +33,21 @@ const carregarDadosMentoria = (mentoria) => {
 // Função para editar a mentoria na API
 const editarMentoria = async (id, mentoria) => {
   // Realiza uma requisição PUT para atualizar a mentoria com os novos dados
-  await fetch(`http://localhost:3000/mentorias/${id}`, {
-    method: "PUT",
-    headers: {
-      Accept: "application/json, text/plain, */*",
-      "Content-Type": "application/json",
-    },
-    // Inclui os dados da mentoria no corpo da requisição, alterando o mentor para conter apenas o nome
-    body: JSON.stringify({
-      ...mentoria,
-      mentor: { name: mentoria.mentor.name },
-    }),
-  });
+  await fetch(
+    `https://api-projetofinal-arnia-md1.onrender.com/mentorias/${id}`,
+    {
+      method: "PUT",
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+      },
+      // Inclui os dados da mentoria no corpo da requisição, alterando o mentor para conter apenas o nome
+      body: JSON.stringify({
+        ...mentoria,
+        mentor: { name: mentoria.mentor.name },
+      }),
+    }
+  );
 };
 
 // Função para carregar os dados da mentoria a ser editada
@@ -71,7 +76,9 @@ const validarStatus = () => {
 
 // Função para obter a lista de mentores da API
 const pegarMentorias = async () => {
-  const resposta = await fetch(`http://localhost:3000/mentores`);
+  const resposta = await fetch(
+    `https://api-projetofinal-arnia-md1.onrender.com/mentores`
+  );
   const autoresJson = await resposta.json();
   return autoresJson;
 };
@@ -125,4 +132,3 @@ formulario.addEventListener("submit", async (e) => {
 // Carrega os dados da mentoria a ser editada e as opções de mentores no carregamento da página
 adicionarSelect();
 carregarDadosEditar();
-

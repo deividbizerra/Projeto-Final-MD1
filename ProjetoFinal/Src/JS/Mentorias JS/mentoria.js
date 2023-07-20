@@ -3,7 +3,7 @@ const formMentores = document.querySelector("#formMentorias");
 
 // Variáveis de controle para ordenação dos mentores
 let ordenacaoMentoria = "asc";
-let ordenacaoNome = "asc"; 
+let ordenacaoNome = "asc";
 let ordenacaoStatus = "asc";
 
 // Função para alternar a ordenação por Mentoria
@@ -16,7 +16,6 @@ const ordenarPorMentoria = () => {
   atualizarIconeOrdenacao("setaMentoria", ordenacaoMentoria); // Primeiro atualiza o ícone de ordenação
   buscarMentorias(null, ordenacaoMentoria); // Em seguida, chama a função de busca com a nova ordenação
 };
-
 
 // Função para alternar a ordenação por nome
 const ordenarPorNome = () => {
@@ -52,12 +51,8 @@ const atualizarIconeOrdenacao = (iconeId, ordenacao) => {
   }
 };
 
-
 // Função para buscar todas as mentorias
-const buscarMentorias = async ( pesquisa = null,
-  page = 1,
-  limit = 5) => {
-
+const buscarMentorias = async (pesquisa = null, page = 1, limit = 5) => {
   let textopesquisa = "";
 
   if (pesquisa) {
@@ -68,26 +63,29 @@ const buscarMentorias = async ( pesquisa = null,
     textopesquisa += textopesquisa ? "&_sort=titulo,-1" : "?_sort=titulo,-1";
   } else if (ordenacaoStatus === "desc") {
     textopesquisa += textopesquisa ? "&_sort=status,-1" : "?_sort=status,-1";
-  } else if(ordenacaoNome === "desc"){
-    textopesquisa += textopesquisa ? "&_sort=mentor.name,1" : "?_sort=mentor.name,1"; // Ordena por Mentoria (título) ascendente por padrão
+  } else if (ordenacaoNome === "desc") {
+    textopesquisa += textopesquisa
+      ? "&_sort=mentor.name,1"
+      : "?_sort=mentor.name,1"; // Ordena por Mentoria (título) ascendente por padrão
   }
 
   // Adicione os parâmetros de paginação na URL da requisição
   textopesquisa += `${textopesquisa ? "&" : "?"}_page=${page}&_limit=${limit}`;
-  
+
   try {
-    const response = await fetch(`http://localhost:3000/mentorias${textopesquisa}`);
+    const response = await fetch(
+      `https://api-projetofinal-arnia-md1.onrender.com/mentorias${textopesquisa}`
+    );
     const mentoriasJson = await response.json();
 
-  // Obtém o total de mentores no cabeçalho da resposta
-  const totalMentoria = parseInt(response.headers.get("X-Total-Count"));
+    // Obtém o total de mentores no cabeçalho da resposta
+    const totalMentoria = parseInt(response.headers.get("X-Total-Count"));
 
     mostrarMentorias(mentoriasJson, totalMentoria);
   } catch (erro) {
     console.log(erro);
   }
 };
-
 
 // Função para exibir as mentorias na tabela
 const mostrarMentorias = (dados, totalMentorias) => {
@@ -138,26 +136,27 @@ buscarMentorias(null, ordenacaoMentoria, 1);
 // Função para deletar uma mentoria
 const deleMentoria = async (mentoriaId) => {
   try {
-    await fetch(`http://localhost:3000/mentorias/${mentoriaId}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    buscarMentorias()
+    await fetch(
+      `https://api-projetofinal-arnia-md1.onrender.com/mentorias/${mentoriaId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    buscarMentorias();
   } catch (erro) {
     console.log(erro);
   }
 };
 
-buscarMentorias();// Chama a função para buscar e exibir as mentorias
+buscarMentorias(); // Chama a função para buscar e exibir as mentorias
 
 // Função para redirecionar para a página de edição de mentoria com o ID
 const editarMentoria = (id) => {
   window.location = `editarmentoria.html?id=${id}`;
 };
-
-
 
 // Função para redirecionar para a página de criação de nova mentoria
 const novaMentoria = () => {

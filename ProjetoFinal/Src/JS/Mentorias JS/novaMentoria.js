@@ -6,14 +6,18 @@ const buscarMentoresId = async (id) => {
     return false;
   }
 
-  const response = await fetch(`http://localhost:3000/mentores/${id}`);
+  const response = await fetch(
+    `https://api-projetofinal-arnia-md1.onrender.com/mentores/${id}`
+  );
   const mentoresJson = await response.json();
   return mentoresJson;
 };
 
 // Função para buscar todos os mentores
 const buscarMentores = async () => {
-  const response = await fetch(`http://localhost:3000/mentores`);
+  const response = await fetch(
+    `https://api-projetofinal-arnia-md1.onrender.com/mentores`
+  );
   const mentorJson = await response.json();
   return mentorJson;
 };
@@ -35,7 +39,7 @@ const carregarSelect = async () => {
 // Função para cadastrar uma mentoria
 const cadastrarMentoria = async (mentoria) => {
   try {
-    await fetch("http://localhost:3000/mentorias", {
+    await fetch("https://api-projetofinal-arnia-md1.onrender.com/mentorias", {
       method: "POST",
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -68,7 +72,7 @@ formulario.addEventListener("submit", async (e) => {
   const name = document.getElementById("mentor").value; // Obtém o ID do mentor selecionado
   const status = document.getElementById("statusMessage").textContent;
 
-  console.log(name)
+  console.log(name);
 
   const mentoriaObj = await buscarMentoresId(name);
   // console.log(mentoriaObj);

@@ -3,7 +3,9 @@ const formNovaTurma = document.querySelector("#formNovaTurma");
 
 // Função assíncrona para buscar todos os mentores
 const buscarMentores = async () => {
-  const response = await fetch(`http://localhost:3000/mentores`);
+  const response = await fetch(
+    `https://api-projetofinal-arnia-md1.onrender.com/mentores`
+  );
   const mentorJson = await response.json();
   return mentorJson;
 };
@@ -28,14 +30,18 @@ const buscarMentoriasId = async (id) => {
     return false;
   }
 
-  const response = await fetch(`http://localhost:3000/mentorias/${id}`);
+  const response = await fetch(
+    `https://api-projetofinal-arnia-md1.onrender.com/mentorias/${id}`
+  );
   const mentoriasJson = await response.json();
   return mentoriasJson;
 };
 
 // Função assíncrona para buscar todas as mentorias
 const buscarMentorias = async () => {
-  const response = await fetch(`http://localhost:3000/mentorias`);
+  const response = await fetch(
+    `https://api-projetofinal-arnia-md1.onrender.com/mentorias`
+  );
   const mentoriaJson = await response.json();
   return mentoriaJson;
 };
@@ -57,7 +63,7 @@ const carregarSelectMentoria = async () => {
 // Função assíncrona para cadastrar uma nova turma
 const cadastrarNovaTurma = async (turmas) => {
   try {
-    await fetch(`http://localhost:3000/turmas`, {
+    await fetch(`https://api-projetofinal-arnia-md1.onrender.com/turmas`, {
       method: "POST",
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -128,4 +134,3 @@ formNovaTurma.addEventListener("submit", async (e) => {
 // Chama as funções para carregar os selects
 carregarSelect();
 carregarSelectMentoria();
-

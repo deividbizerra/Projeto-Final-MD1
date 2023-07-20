@@ -14,7 +14,9 @@ const recuperarId = () => {
 
 // Função assíncrona para buscar os dados de um aluno específico
 const buscarAlunos = async (id) => {
-  const resposta = await fetch(`http://localhost:3000/alunos/${id}`);
+  const resposta = await fetch(
+    `https://api-projetofinal-arnia-md1.onrender.com/alunos/${id}`
+  );
   const alunoJson = await resposta.json();
   return alunoJson;
 };
@@ -28,7 +30,7 @@ const carregarDadosAlunos = (alunos) => {
 
 // Função assíncrona para editar um aluno
 const editarAluno = async (id, alunos) => {
-  await fetch(`http://localhost:3000/alunos/${id}`, {
+  await fetch(`https://api-projetofinal-arnia-md1.onrender.com/alunos/${id}`, {
     method: "PUT",
     headers: {
       Accept: "application/json, text/plain, */*",
@@ -48,7 +50,9 @@ const carregarDadosEditar = async () => {
 
 // Função assíncrona para buscar as turmas
 const buscarTurmas = async () => {
-  const response = await fetch(`http://localhost:3000/turmas`);
+  const response = await fetch(
+    `https://api-projetofinal-arnia-md1.onrender.com/turmas`
+  );
   const turmaJson = await response.json();
   return turmaJson;
 };
