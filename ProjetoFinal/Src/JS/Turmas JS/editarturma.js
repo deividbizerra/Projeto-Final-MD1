@@ -11,10 +11,11 @@ const recuperarId = () => {
   return id;
 };
 
+
 // Função assíncrona para buscar os dados de uma turma pelo ID
 const buscarTurma = async (id) => {
   const resposta = await fetch(
-    `https://api-projetofinal-arnia-md1.onrender.com/turmas/${id}`
+    `http://localhost:3000/turmas/${id}`
   );
   const autorJson = await resposta.json();
   return autorJson;
@@ -35,7 +36,7 @@ const carregarDadosTurmas = (turmas) => {
 
 // Função assíncrona para editar uma turma
 const editarturma = async (id, turmas) => {
-  await fetch(`https://api-projetofinal-arnia-md1.onrender.com/turmas/${id}`, {
+  await fetch(`http://localhost:3000/turmas/${id}`, {
     method: "PUT",
     headers: {
       Accept: "application/json, text/plain, */*",
@@ -57,7 +58,7 @@ const carregarDadosEditar = async () => {
 // Função assíncrona para buscar as mentorias
 const buscarMentorias = async () => {
   const response = await fetch(
-    `https://api-projetofinal-arnia-md1.onrender.com/mentorias`
+    `http://localhost:3000/mentorias`
   );
   const mentoriaJson = await response.json();
   return mentoriaJson;
@@ -80,7 +81,7 @@ const carregarSelectMentoria = async () => {
 // Função assíncrona para buscar os mentores
 const buscarMentores = async () => {
   const response = await fetch(
-    `https://api-projetofinal-arnia-md1.onrender.com/mentores`
+    `http://localhost:3000/mentores`
   );
   const mentoresJson = await response.json();
   return mentoresJson;

@@ -1,5 +1,4 @@
 const tbody = document.querySelector("#tbody");
-const formMentores = document.querySelector("#formMentorias");
 
 // Variáveis de controle para ordenação dos mentores
 let ordenacaoMentoria = "asc";
@@ -74,7 +73,7 @@ const buscarMentorias = async (pesquisa = null, page = 1, limit = 5) => {
 
   try {
     const response = await fetch(
-      `https://api-projetofinal-arnia-md1.onrender.com/mentorias${textopesquisa}`
+      `http://localhost:3000/mentorias${textopesquisa}`
     );
     const mentoriasJson = await response.json();
 
@@ -136,15 +135,12 @@ buscarMentorias(null, ordenacaoMentoria, 1);
 // Função para deletar uma mentoria
 const deleMentoria = async (mentoriaId) => {
   try {
-    await fetch(
-      `https://api-projetofinal-arnia-md1.onrender.com/mentorias/${mentoriaId}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    await fetch(`http://localhost:3000/mentorias/${mentoriaId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     buscarMentorias();
   } catch (erro) {
     console.log(erro);

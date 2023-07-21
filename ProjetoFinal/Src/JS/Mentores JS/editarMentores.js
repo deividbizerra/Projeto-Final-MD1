@@ -4,17 +4,14 @@ let id = null;
 // Função para editar um mentor
 const editarAutor = async (mentor) => {
   // Faz uma requisição PUT para a API, passando o ID do mentor e os dados atualizados
-  await fetch(
-    `https://api-projetofinal-arnia-md1.onrender.com/mentores/${id}`,
-    {
-      method: "PUT",
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(mentor),
-    }
-  );
+  await fetch(`http://localhost:3000/mentores/${id}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(mentor),
+  });
 
   // Redireciona para a página "../mentores.html" após a edição do mentor
   window.location = "../Mentores/mentores.html";
@@ -28,9 +25,7 @@ const carregarDadosEditar = async () => {
   id = paramObj.get("id");
 
   // Faz uma requisição GET para a API, buscando os dados do mentor com o ID fornecido
-  const resultado = await fetch(
-    `https://api-projetofinal-arnia-md1.onrender.com/mentores/${id}`
-  );
+  const resultado = await fetch(`http://localhost:3000/mentores/${id}`);
   const mentor = await resultado.json();
 
   // Preenche os campos do formulário com os dados do mentor

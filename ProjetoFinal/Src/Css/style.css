@@ -336,7 +336,7 @@ button[type="submit"] {
   border-radius: 15px;
 }
 
-.main-conteudo .buttonNovoMentor {
+.main-conteudo .buttonNovoCadastro {
   border: none;
   padding: 12px 35px;
   background-color: #00c247;
@@ -387,7 +387,6 @@ button[type="submit"] {
 }
 .tabela td {
   padding: 30px 0 0 5px;
-
   font-size: 16px;
 }
 
@@ -451,7 +450,7 @@ label {
   border: 1px solid rgba(128, 128, 128, 0.644);
 }
 
-.salvarMentor button {
+.buttonSalvar button {
   width: 35%;
   padding: 12px 100px 12px 100px;
   border: none;
@@ -459,6 +458,8 @@ label {
   border-radius: 16px;
   background-color: #482d83;
   color: white;
+  display: flex;
+  justify-content: center;
 }
 
 .inputsMentoria {

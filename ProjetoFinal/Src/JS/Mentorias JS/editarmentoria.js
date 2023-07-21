@@ -12,7 +12,7 @@ const recuperarId = () => {
 // Função para buscar os dados da mentoria na API
 const buscarMentoria = async (id) => {
   const resposta = await fetch(
-    `https://api-projetofinal-arnia-md1.onrender.com/mentorias/${id}`
+    `http://localhost:3000/mentorias/${id}`
   );
   const autorJson = await resposta.json();
   return autorJson;
@@ -34,7 +34,7 @@ const carregarDadosMentoria = (mentoria) => {
 const editarMentoria = async (id, mentoria) => {
   // Realiza uma requisição PUT para atualizar a mentoria com os novos dados
   await fetch(
-    `https://api-projetofinal-arnia-md1.onrender.com/mentorias/${id}`,
+    `http://localhost:3000/mentorias/${id}`,
     {
       method: "PUT",
       headers: {
@@ -77,7 +77,7 @@ const validarStatus = () => {
 // Função para obter a lista de mentores da API
 const pegarMentorias = async () => {
   const resposta = await fetch(
-    `https://api-projetofinal-arnia-md1.onrender.com/mentores`
+    `http://localhost:3000/mentores`
   );
   const autoresJson = await resposta.json();
   return autoresJson;

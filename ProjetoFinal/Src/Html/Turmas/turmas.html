@@ -91,22 +91,76 @@
             />
             <i class="fas fa-search"></i>
           </div>
-          <button type="submit" class="buttonNovoMentor" onclick="novaTurma()">
+          <button
+            type="submit"
+            class="buttonNovoCadastro"
+            onclick="novaTurma()"
+          >
             <i class="fas fa-plus"></i> Nova Turma
           </button>
         </div>
 
+        <div id="paginationControls" class="paginasControl"></div>
         <section class="tabela">
           <table id="table">
             <thead>
               <tr>
-                <th class="table-th-d">Turma</th>
-                <th>Mentor</th>
-                <th>Mentoria</th>
-                <th>Data de início</th>
-                <th>Dia da semana</th>
-                <th>Horario</th>
-                <th>Encontros</th>
+                <th class="table-th-d">
+                  Turma
+                  <i
+                    id="setaTurma"
+                    class="fas fa-sort"
+                    onclick="ordenarPorTurma()"
+                  ></i>
+                </th>
+                <th>
+                  Mentor
+                  <i
+                    id="setaMentor"
+                    class="fas fa-sort"
+                    onclick="ordenarPorMentor()"
+                  ></i>
+                </th>
+                <th>
+                  Mentoria
+                  <i
+                    id="setaMentoria"
+                    class="fas fa-sort"
+                    onclick="ordenarPorMentoria()"
+                  ></i>
+                </th>
+                <th>
+                  Data de início
+                  <i
+                    id="setaDataInicio"
+                    class="fas fa-sort"
+                    onclick="ordenarPorDataInicio()"
+                  ></i>
+                </th>
+                <th>
+                  Dia da semana
+                  <i
+                    id="setaDiaSemana"
+                    class="fas fa-sort"
+                    onclick="ordenarPorDiaSemana()"
+                  ></i>
+                </th>
+                <th>
+                  Horario
+                  <i
+                    id="setaHorario"
+                    class="fas fa-sort"
+                    onclick="ordenarPorHorario()"
+                  ></i>
+                </th>
+                <th>
+                  Encontros
+                  <i
+                    id="setaEncontros"
+                    class="fas fa-sort"
+                    onclick="ordenarPorEncontros()"
+                  ></i>
+                </th>
                 <th class="table-e">Ações</th>
               </tr>
             </thead>

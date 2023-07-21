@@ -6,7 +6,7 @@ const Erroemail = document.querySelector("#email");
 const cadastrarMentores = async (mentores) => {
   try {
     // Faz uma requisição POST para a API para cadastrar o mentor
-    await fetch(`https://api-projetofinal-arnia-md1.onrender.com/mentores`, {
+    await fetch(`http://localhost:3000/mentores`, {
       method: "POST",
       headers: {
         Accept: "application/json, text/plain, */*",

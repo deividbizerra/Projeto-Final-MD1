@@ -59,7 +59,7 @@ const buscarMentores = async (pesquisa = null, page = 1, limit = 5) => {
   try {
     // Faz uma requisição na API para obter os dados dos mentores
     const response = await fetch(
-      `https://api-projetofinal-arnia-md1.onrender.com/mentores${textopesquisa}`
+      `http://localhost:3000/mentores${textopesquisa}`
     );
     // Converte a resposta em JSON
     const mentorJson = await response.json();
@@ -121,7 +121,7 @@ const deleMentor = async (mentorId) => {
   try {
     // Faz uma requisição DELETE para a API, passando o ID do mentor a ser deletado
     await fetch(
-      `https://api-projetofinal-arnia-md1.onrender.com/mentores/${mentorId}`,
+      `http://localhost:3000/mentores/${mentorId}`,
       {
         method: "DELETE",
         headers: {

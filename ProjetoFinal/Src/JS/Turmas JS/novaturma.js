@@ -1,10 +1,20 @@
 // Seleciona o formulário pelo seu ID
 const formNovaTurma = document.querySelector("#formNovaTurma");
 
+const errorMentor = document.querySelector("#mentor")
+const erroMentoria = document.querySelector("#tituloMentoria")
+const erroDataInicio = document.querySelector("#dataInicio")
+const erroDiasDaSemana = document.querySelector("#diasDaSemana")
+const erroHorarioInicio= document.querySelector("#horarioInicio")
+const erroHorarioFim = document.querySelector("#horarioFim")
+const erroTurma = document.querySelector("#turma")
+const erroLinkAula = document.querySelector("#linkAula")
+const erroQtdEncontro = document.querySelector("#qtdEncontro")
+
 // Função assíncrona para buscar todos os mentores
 const buscarMentores = async () => {
   const response = await fetch(
-    `https://api-projetofinal-arnia-md1.onrender.com/mentores`
+    `http://localhost:3000/mentores`
   );
   const mentorJson = await response.json();
   return mentorJson;
@@ -31,7 +41,7 @@ const buscarMentoriasId = async (id) => {
   }
 
   const response = await fetch(
-    `https://api-projetofinal-arnia-md1.onrender.com/mentorias/${id}`
+    `http://localhost:3000/mentorias/${id}`
   );
   const mentoriasJson = await response.json();
   return mentoriasJson;
@@ -40,7 +50,7 @@ const buscarMentoriasId = async (id) => {
 // Função assíncrona para buscar todas as mentorias
 const buscarMentorias = async () => {
   const response = await fetch(
-    `https://api-projetofinal-arnia-md1.onrender.com/mentorias`
+    `http://localhost:3000/mentorias`
   );
   const mentoriaJson = await response.json();
   return mentoriaJson;
@@ -63,7 +73,7 @@ const carregarSelectMentoria = async () => {
 // Função assíncrona para cadastrar uma nova turma
 const cadastrarNovaTurma = async (turmas) => {
   try {
-    await fetch(`https://api-projetofinal-arnia-md1.onrender.com/turmas`, {
+    await fetch(`http://localhost:3000/turmas`, {
       method: "POST",
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -101,16 +111,17 @@ formNovaTurma.addEventListener("submit", async (e) => {
   const mentoriaName = mentoriaOption.text;
 
   if (
-    diasDaSemana &&
-    horarioInicio &&
-    horarioFim &&
-    turma &&
-    linkAula &&
-    qtdEncontro &&
-    dataInicio &&
-    mentorName &&
+    diasDaSemana  !== "" &&
+    horarioInicio !== "" &&
+    horarioFim !== ""&&
+    turma !== ""&&
+    linkAula !== ""&&
+    qtdEncontro !== ""&&
+    dataInicio !== ""&&
+    mentorName !== ""&&
     mentoriaName !== ""
   ) {
+   
     // Cria um objeto com os valores dos campos do formulário
     const turmas = {
       turma,
@@ -125,9 +136,20 @@ formNovaTurma.addEventListener("submit", async (e) => {
       linkAula,
       dataInicio,
     };
+   
     cadastrarNovaTurma(turmas);
   } else {
-    alert("Preencha todos os campos");
+    errorMentor.classList.add("invalido");
+    erroMentoria.classList.add("invalido");
+    erroDataInicio.classList.add("invalido");
+    erroDiasDaSemana.classList.add("invalido");
+    erroHorarioInicio.classList.add("invalido");
+    erroHorarioFim.classList.add("invalido");
+    erroTurma.classList.add("invalido");
+    erroLinkAula.classList.add("invalido");
+    erroQtdEncontro.classList.add("invalido");
+
+
   }
 });
 

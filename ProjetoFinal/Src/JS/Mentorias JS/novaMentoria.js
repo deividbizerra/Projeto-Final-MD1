@@ -1,23 +1,20 @@
 const formulario = document.querySelector("#formMentorias");
-
+const ErroMentoria = document.querySelector("#tituloMentoria");
+const ErroMentor = document.querySelector("#mentor");
 // Função para buscar um mentor pelo ID
 const buscarMentoresId = async (id) => {
   if (id == null) {
     return false;
   }
 
-  const response = await fetch(
-    `https://api-projetofinal-arnia-md1.onrender.com/mentores/${id}`
-  );
+  const response = await fetch(`http://localhost:3000/mentores/${id}`);
   const mentoresJson = await response.json();
   return mentoresJson;
 };
 
 // Função para buscar todos os mentores
 const buscarMentores = async () => {
-  const response = await fetch(
-    `https://api-projetofinal-arnia-md1.onrender.com/mentores`
-  );
+  const response = await fetch(`http://localhost:3000/mentores`);
   const mentorJson = await response.json();
   return mentorJson;
 };
@@ -39,7 +36,7 @@ const carregarSelect = async () => {
 // Função para cadastrar uma mentoria
 const cadastrarMentoria = async (mentoria) => {
   try {
-    await fetch("https://api-projetofinal-arnia-md1.onrender.com/mentorias", {
+    await fetch("http://localhost:3000/mentorias", {
       method: "POST",
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -72,23 +69,23 @@ formulario.addEventListener("submit", async (e) => {
   const name = document.getElementById("mentor").value; // Obtém o ID do mentor selecionado
   const status = document.getElementById("statusMessage").textContent;
 
-  console.log(name);
 
   const mentoriaObj = await buscarMentoresId(name);
-  // console.log(mentoriaObj);
+   console.log(mentoriaObj);
 
-  if (Object.keys(mentoriaObj).length == 0) {
-    console.log("Erro: Não foi possível registrar o post, autor inválido");
-    return;
+
+  if (Object.keys(mentoriaObj).length !== 0 && titulo !== "") {
+    const mentoria = {
+      titulo,
+      status,
+      mentor: mentoriaObj,
+    };
+
+    cadastrarMentoria(mentoria);
+  } else {
+    ErroMentor.classList.add("invalido");
+    ErroMentoria.classList.add("invalido");
   }
-
-  const mentoria = {
-    titulo,
-    status,
-    mentor: mentoriaObj,
-  };
-
-  cadastrarMentoria(mentoria);
 });
 
 carregarSelect();

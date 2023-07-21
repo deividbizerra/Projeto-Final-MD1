@@ -1,5 +1,8 @@
 // Seleciona o formulário de alunos
 const formulario = document.getElementById("formAlunos");
+const Erroname = document.querySelector("#nome");
+const Erroemail = document.querySelector("#email");
+const ErroTurma = document.querySelector("#turma");
 
 // Função assíncrona para buscar todas as turmas
 const buscarTurmas = async () => {
@@ -58,15 +61,22 @@ formulario.addEventListener("submit", async (e) => {
   const turmaOption = turmaSelect.options[turmaSelect.selectedIndex];
   const turmaName = turmaOption.text;
 
-  // Cria um objeto "aluno" com os valores dos campos do formulário
-  const aluno = {
-    nome,
-    email,
-    turma: turmaName,
-  };
+  if (nome !== "" && email !== "" && turmaName !== "") {
+    const aluno = {
+      nome,
+      email,
+      turma: turmaName,
+    };
 
-  // Chama a função "cadastrarNovoAluno" para cadastrar o novo aluno
-  cadastrarNovoAluno(aluno);
+    // Chama a função "cadastrarNovoAluno" para cadastrar o novo aluno
+    cadastrarNovoAluno(aluno);
+  } else {
+    // Caso algum dos campos esteja vazio, adiciona a classe "invalido" para exibir um estilo de erro
+    Erroname.classList.add("invalido");
+    Erroemail.classList.add("invalido");
+    ErroTurma.classList.add("invalido");
+  }
+  // Cria um objeto "aluno" com os valores dos campos do formulário
 });
 
 // Chama a função para carregar as opções do select de turmas

@@ -91,7 +91,11 @@
             />
             <i class="fas fa-search"></i>
           </div>
-          <button type="submit" class="buttonNovoMentor" onclick="novoAluno()">
+          <button
+            type="submit"
+            class="buttonNovoCadastro"
+            onclick="novoAluno()"
+          >
             <i class="fas fa-plus"></i> Novo Aluno
           </button>
         </div>
@@ -102,21 +106,30 @@
           <table id="table">
             <thead>
               <tr>
-                <th class="table-th-d">Nome <i
-                  id="setaNome"
-                  class="fas fa-sort"
-                  onclick="ordenarPorMentor()"
-                ></i></th>
-                <th>Turma <i
-                  id="setaTurma"
-                  class="fas fa-sort"
-                  onclick="ordenarPorTurma()"
-                ></i></th>
-                <th>Email <i
-                  id="setaEmail"
-                  class="fas fa-sort"
-                  onclick="ordenarPorEmail()"
-                ></i></th>
+                <th class="table-th-d">
+                  Nome
+                  <i
+                    id="setaNome"
+                    class="fas fa-sort"
+                    onclick="ordenarPorMentor()"
+                  ></i>
+                </th>
+                <th>
+                  Turma
+                  <i
+                    id="setaTurma"
+                    class="fas fa-sort"
+                    onclick="ordenarPorTurma()"
+                  ></i>
+                </th>
+                <th>
+                  Email
+                  <i
+                    id="setaEmail"
+                    class="fas fa-sort"
+                    onclick="ordenarPorEmail()"
+                  ></i>
+                </th>
                 <th class="table-e">Ações</th>
               </tr>
             </thead>
