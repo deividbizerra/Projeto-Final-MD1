@@ -1,17 +1,73 @@
 // Seleciona o elemento tbody da tabela onde os alunos serão exibidos
 const tbody = document.querySelector("#tbody");
 
-// Seleciona o formulário de alunos
-const formMentores = document.querySelector("#formAlunos");
+let ordenacaoPorNome = "asc";
+let ordenacaoPorTurma = "asc";
+let ordenacaoPorEmail = "asc";
+
+// Função para alternar a ordenação por Mentor
+const ordenarPorMentor = () => {
+  if (ordenacaoPorNome === "asc") {
+    ordenacaoPorNome = "desc"; // Se a ordenação atual for ascendente, muda para descendente
+  } else {
+    ordenacaoPorNome = "asc"; // Caso contrário, muda para ascendente
+  }
+  atualizarIconeOrdenacao("setaNome", ordenacaoPorNome); // Primeiro atualiza o ícone de ordenação
+  buscarAluno(null, ordenacaoPorNome); // Em seguida, chama a função de busca com a nova ordenação
+};
+
+// Função para alternar a ordenação por Turma
+const ordenarPorTurma = () => {
+  if (ordenacaoPorTurma === "asc") {
+    ordenacaoPorTurma = "desc"; // Se a ordenação atual for ascendente, muda para descendente
+  } else {
+    ordenacaoPorTurma = "asc"; // Caso contrário, muda para ascendente
+  }
+  atualizarIconeOrdenacao("setaTurma", ordenacaoPorTurma); // Primeiro atualiza o ícone de ordenação
+  buscarAluno(null, ordenacaoPorTurma); // Em seguida, chama a função de busca com a nova ordenação
+};
+
+// Função para alternar a ordenação por Email
+const ordenarPorEmail = () => {
+  if (ordenacaoPorEmail === "asc") {
+    ordenacaoPorEmail = "desc"; // Se a ordenação atual for ascendente, muda para descendente
+  } else {
+    ordenacaoPorEmail = "asc"; // Caso contrário, muda para ascendente
+  }
+  atualizarIconeOrdenacao("setaEmail", ordenacaoPorEmail); // Primeiro atualiza o ícone de ordenação
+  buscarAluno(null, ordenacaoPorEmail); // Em seguida, chama a função de busca com a nova ordenação
+};
+
+const atualizarIconeOrdenacao = (iconeId, ordenacao) => {
+  const icone = document.getElementById(iconeId);
+  icone.classList.remove("fa-sort", "fa-sort-up", "fa-sort-down");
+
+  if (ordenacao === "asc") {
+    icone.classList.add("fa-sort-up"); // Adiciona a classe do ícone de ordenação ascendente
+  } else {
+    icone.classList.add("fa-sort-down"); // Adiciona a classe do ícone de ordenação descendente
+  }
+};
 
 // Função assíncrona para buscar os alunos
-const buscarAluno = async (pesquisa = null) => {
+const buscarAluno = async (pesquisa = null, page = 1, limit = 5) => {
   let textopesquisa = "";
 
   // Verifica se há uma pesquisa a ser feita e monta a query de pesquisa
   if (pesquisa) {
     textopesquisa = `?q=${pesquisa}`;
   }
+
+  if (ordenacaoPorNome === "desc") {
+    textopesquisa += textopesquisa ? "&_sort=nome,-1" : "?_sort=nome,-1";
+  } else if (ordenacaoPorTurma === "desc") {
+    textopesquisa += textopesquisa ? "&_sort=turma,-1" : "?_sort=turma,-1";
+  } else if (ordenacaoPorEmail === "desc") {
+    textopesquisa += textopesquisa ? "&_sort=email,1" : "?_sort=email,1"; // Ordena por Mentoria (título) ascendente por padrão
+  }
+
+  // Adicione os parâmetros de paginação na URL da requisição
+  textopesquisa += `${textopesquisa ? "&" : "?"}_page=${page}&_limit=${limit}`;
 
   try {
     // Faz uma requisição na API para obter os dados dos alunos
@@ -21,7 +77,10 @@ const buscarAluno = async (pesquisa = null) => {
     // Converte a resposta em JSON
     const alunosJson = await response.json();
     // Chama a função para exibir os alunos na tabela
-    mostrarAlunos(alunosJson);
+    // Obtém o total de mentores no cabeçalho da resposta
+    const totalAluno = parseInt(response.headers.get("X-Total-Count"));
+
+    mostrarAlunos(alunosJson, totalAluno);
   } catch (error) {
     console.log(error);
   }
@@ -34,7 +93,7 @@ const editarAluno = (id) => {
 };
 
 // Função para exibir os alunos na tabela
-const mostrarAlunos = (dados) => {
+const mostrarAlunos = (dados, totalAluno) => {
   tbody.innerHTML = "";
 
   // Itera sobre os dados dos alunos e cria uma nova linha na tabela com os dados de cada aluno
@@ -51,10 +110,28 @@ const mostrarAlunos = (dados) => {
     </tr>
     `;
   });
+  exibirControlesPaginacao(totalAluno);
 };
 
-// Inicia a busca e exibição dos alunos na tabela
-buscarAluno();
+const exibirControlesPaginacao = (totalAluno) => {
+  const paginationControls = document.getElementById("paginationControls");
+  const totalPages = Math.ceil(totalAluno / 5); // 10 é o número de itens por página
+
+  let paginationHTML = "";
+
+  for (let i = 1; i <= totalPages; i++) {
+    paginationHTML += `
+    <button onclick="mudarPagina(${i})" class="btnPaginacao">${i}</button>
+    `;
+  }
+
+  paginationControls.innerHTML = paginationHTML;
+};
+
+const mudarPagina = (pageNumber) => {
+  buscarAluno(null, pageNumber);
+};
+buscarAluno(null, "asc", 1);
 
 // Função para deletar um aluno
 const deletAluno = async (alunoId) => {
@@ -75,6 +152,9 @@ const deletAluno = async (alunoId) => {
     console.log(erro);
   }
 };
+
+// Inicia a busca e exibição dos alunos na tabela
+buscarAluno();
 
 // Função para redirecionar para a página de criação de novo aluno
 const novoAluno = () => {

@@ -129,10 +129,11 @@ button[type="submit"] {
   border: none;
   outline: none;
   padding: 10px;
-  
   cursor: pointer;
 }
-
+.buttonLogin {
+  margin-top: 40px;
+}
 .divChek {
   margin: 10px 0 0 5px;
   width: 80%;
@@ -545,8 +546,7 @@ label {
   font-size: 12px;
 }
 
-
-.paginasControl{
+.paginasControl {
   display: flex;
   display: flex;
   justify-content: flex-end;
