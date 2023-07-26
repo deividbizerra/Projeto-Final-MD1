@@ -1,5 +1,60 @@
 // Seleciona o elemento <tbody> do HTML
 const tbody = document.querySelector("tbody");
+const perfil = document.querySelector("#perfil");
+let selectPaginacaoElement = document.querySelector("#selectPaginacao");
+
+// Recupera o valor do select armazenado no localStorage ou define o valor padrão (5)
+const selectPaginacao = localStorage.getItem("selectPaginacao") || "5";
+document.querySelector("#selectPaginacao").value = selectPaginacao;
+
+// Adiciona um evento de escuta para detectar quando o valor do select for alterado
+selectPaginacaoElement.addEventListener("change", () => {
+  // Obtém o novo valor selecionado pelo usuário
+  const novoValor = selectPaginacaoElement.value;
+
+  // Armazena o novo valor no localStorage
+  localStorage.setItem("selectPaginacao", novoValor);
+
+  // Chama a função buscarMentores com o novo valor de limite de página
+  buscarTumar(null, 1, novoValor);
+});
+
+// Recupera o ID do usuário da URL
+const urlParams = new URLSearchParams(window.location.search);
+const usuarioId = urlParams.get("id");
+
+// Função para exibir o perfil do usuário
+const mostrarPerfil = (dados) => {
+  perfil.innerHTML = `
+    <h3>${dados.nome}</h3>
+    <p>${dados.email}</p>
+  `;
+};
+
+// Função assíncrona para buscar os usuários da API
+const buscarUsuarios = async () => {
+  try {
+    // Recupera o ID do usuário do localStorage
+    const usuarioId = localStorage.getItem("idUsuario");
+
+    // Faz uma requisição GET para a API para buscar os usuários
+    const response = await fetch(
+      `https://api-projetofinal-arnia-md1.onrender.com/usuarios`
+    );
+    const usuariosJson = await response.json();
+
+    // Chama a função mostrarPerfil passando os dados do usuário encontrado
+    const usuarioEncontrado = usuariosJson.find(
+      (usuario) => usuario.id === parseInt(usuarioId)
+    );
+    if (usuarioEncontrado) {
+      mostrarPerfil(usuarioEncontrado);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+buscarUsuarios();
 
 let ordenacaoTurmas = "asc";
 let ordenacaoMentor = "asc";
@@ -92,7 +147,10 @@ const atualizarIconeOrdenacao = (iconeId, ordenacao) => {
 };
 
 // Função assíncrona para buscar as turmas
-const buscarTumar = async (pesquisa = null, page = 1, limit = 5) => {
+const buscarTumar = async (pesquisa = null, page = 1) => {
+  // Recupere o novo valor selecionado do select de paginação
+  const limit = selectPaginacaoElement.value;
+
   let textopesquisa = "";
 
   if (pesquisa) {
@@ -104,7 +162,7 @@ const buscarTumar = async (pesquisa = null, page = 1, limit = 5) => {
   } else if (ordenacaoMentor === "desc") {
     textopesquisa += textopesquisa ? "&_sort=mentor,-1" : "?_sort=mentor,-1";
   } else if (ordenacaoMentoria === "desc") {
-    textopesquisa += textopesquisa ? "&_sort=mentoria,1" : "?_sort=mentoria,1"; // Ordena por Mentoria (título) ascendente por padrão
+    textopesquisa += textopesquisa ? "&_sort=mentoria,1" : "?_sort=mentoria,1";
   } else if (ordenacaoDataInicio == "desc") {
     textopesquisa += textopesquisa
       ? "&_sort=dataInicio,-1"
@@ -125,7 +183,7 @@ const buscarTumar = async (pesquisa = null, page = 1, limit = 5) => {
 
   try {
     const response = await fetch(
-      `http://localhost:3000/turmas${textopesquisa}`
+      `https://api-projetofinal-arnia-md1.onrender.com/turmas${textopesquisa}`
     );
     const turmaJson = await response.json();
 
@@ -133,6 +191,7 @@ const buscarTumar = async (pesquisa = null, page = 1, limit = 5) => {
     const totalTurmas = parseInt(response.headers.get("X-Total-Count"));
 
     mostrarTurma(turmaJson, totalTurmas);
+    exibirControlesPaginacao(totalTurmas, limit);
   } catch (erro) {
     console.log(erro);
   }
@@ -167,35 +226,54 @@ const mostrarTurma = (dados, totalTurmas) => {
   exibirControlesPaginacao(totalTurmas);
 };
 
-const exibirControlesPaginacao = (totalTurmas) => {
+// Essa função exibirControlesPaginacao recebe dois parâmetros:
+// totalAluno: o número total de alunos que precisam ser paginados.
+// limit: o número máximo de alunos que serão exibidos por página.
+const exibirControlesPaginacao = (totalTurmas, limit) => {
+  // Obtém o elemento HTML que representa os controles de paginação pelo seu ID.
   const paginationControls = document.getElementById("paginationControls");
-  const totalPages = Math.ceil(totalTurmas / 5); // 10 é o número de itens por página
 
+  // Calcula o número total de páginas necessárias para exibir todas as turmas.
+  const totalPages = Math.ceil(totalTurmas / limit);
+
+  // Inicializa uma variável para armazenar o código HTML dos botões de paginação.
   let paginationHTML = "";
 
+  // Um laço de repetição que vai de 1 até o número total de páginas.
   for (let i = 1; i <= totalPages; i++) {
+    // Para cada página, adiciona um botão de paginação ao código HTML.
+    // O botão terá a classe "btnPaginacao" e ao ser clicado, chamará a função mudarPagina passando o número da página como argumento.
     paginationHTML += `
     <button onclick="mudarPagina(${i})" class="btnPaginacao">${i}</button>
     `;
   }
 
+  // Após criar todos os botões de paginação, insere o código HTML na div "paginationControls",
+  // substituindo o conteúdo anterior, se houver.
   paginationControls.innerHTML = paginationHTML;
+
+  // Atualize o valor selecionado no select de paginação
+  const selectPaginacaoElement = document.querySelector("#selectPaginacao");
+  selectPaginacaoElement.value = limit;
 };
 
 const mudarPagina = (pageNumber) => {
   buscarTumar(null, pageNumber);
 };
-buscarTumar(null, ordenacaoTurmas, 1);
+buscarTumar(null, "asc", 1);
 
 // Função assíncrona para deletar uma turma
 const deletTurma = async (turmaId) => {
   try {
-    await fetch(`http://localhost:3000/turmas/${turmaId}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    await fetch(
+      `https://api-projetofinal-arnia-md1.onrender.com/turmas/${turmaId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     buscarTumar();
   } catch (erro) {
     console.log(erro);
@@ -204,11 +282,12 @@ const deletTurma = async (turmaId) => {
 
 // Chama a função buscarTumar para obter as turmas e exibi-las na tabela
 buscarTumar();
-// Função para redirecionar para a página de criação de nova turma
+
 // Função para redirecionar para a página de edição de uma turma
 const editarTuma = (id) => {
   window.location = `../Turmas/editarturma.html?id=${id}`;
 };
+// Função para redirecionar para a página de criação de nova turma
 const novaTurma = () => {
   window.location = "../Turmas/novaturma.html";
 };

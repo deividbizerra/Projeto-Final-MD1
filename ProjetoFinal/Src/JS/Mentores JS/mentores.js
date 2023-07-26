@@ -1,6 +1,61 @@
 // Seleciona os elementos do HTML através dos seus IDs
 const tbody = document.querySelector("#tbody"); // Tabela onde os mentores serão exibidos
 const inputSearch = document.getElementById("inputSearch"); // Input de busca
+const perfil = document.querySelector("#perfil");
+let selectPaginacaoElement = document.querySelector("#selectPaginacao");
+
+// Recupera o valor do select armazenado no localStorage ou define o valor padrão (5)
+const selectPaginacao = localStorage.getItem("selectPaginacao") || "5";
+document.querySelector("#selectPaginacao").value = selectPaginacao;
+
+// Adiciona um evento de escuta para detectar quando o valor do select for alterado
+selectPaginacaoElement.addEventListener("change", () => {
+  // Obtém o novo valor selecionado pelo usuário
+  const novoValor = selectPaginacaoElement.value;
+
+  // Armazena o novo valor no localStorage
+  localStorage.setItem("selectPaginacao", novoValor);
+
+  // Chama a função buscarMentores com o novo valor de limite de página
+  buscarMentores(null, 1, novoValor);
+});
+
+// Recupera o ID do usuário da URL
+const urlParams = new URLSearchParams(window.location.search);
+const usuarioId = urlParams.get("id");
+
+// Função para exibir o perfil do usuário
+const mostrarPerfil = (dados) => {
+  perfil.innerHTML = `
+    <h3>${dados.nome}</h3>
+    <p>${dados.email}</p>
+  `;
+};
+
+// Função assíncrona para buscar os usuários da API
+const buscarUsuarios = async () => {
+  try {
+    // Recupera o ID do usuário do localStorage
+    const usuarioId = localStorage.getItem("idUsuario");
+
+    // Faz uma requisição GET para a API para buscar os usuários
+    const response = await fetch(
+      `https://api-projetofinal-arnia-md1.onrender.com/usuarios`
+    );
+    const usuariosJson = await response.json();
+
+    // Chama a função mostrarPerfil passando os dados do usuário encontrado
+    const usuarioEncontrado = usuariosJson.find(
+      (usuario) => usuario.id === parseInt(usuarioId)
+    );
+    if (usuarioEncontrado) {
+      mostrarPerfil(usuarioEncontrado);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+buscarUsuarios();
 
 // Variáveis de controle para ordenação dos mentores
 let ordenacaoNome = "asc"; // Variável para controlar a ordenação por nome (ascendente ou descendente)
@@ -41,7 +96,10 @@ const atualizarIconeOrdenacao = (iconeId, ordenacao) => {
 };
 
 // Função assíncrona para buscar os mentores na API
-const buscarMentores = async (pesquisa = null, page = 1, limit = 5) => {
+const buscarMentores = async (pesquisa = null, page = 1) => {
+  // Recupere o novo valor selecionado do select de paginação
+  const limit = selectPaginacaoElement.value;
+
   let textopesquisa = "";
 
   if (pesquisa) {
@@ -59,7 +117,7 @@ const buscarMentores = async (pesquisa = null, page = 1, limit = 5) => {
   try {
     // Faz uma requisição na API para obter os dados dos mentores
     const response = await fetch(
-      `http://localhost:3000/mentores${textopesquisa}`
+      `https://api-projetofinal-arnia-md1.onrender.com/mentores${textopesquisa}`
     );
     // Converte a resposta em JSON
     const mentorJson = await response.json();
@@ -69,6 +127,8 @@ const buscarMentores = async (pesquisa = null, page = 1, limit = 5) => {
 
     // Chama a função para exibir os mentores na tabela e passa o total de mentores
     mostrarMentores(mentorJson, totalMentores);
+
+    exibirControlesPaginacao(totalMentores, limit);
   } catch (error) {
     console.log(error);
   }
@@ -96,9 +156,9 @@ const mostrarMentores = (dados, totalMentores) => {
   exibirControlesPaginacao(totalMentores);
 };
 
-const exibirControlesPaginacao = (totalMentores) => {
+const exibirControlesPaginacao = (totalMentores, limit) => {
   const paginationControls = document.getElementById("paginationControls");
-  const totalPages = Math.ceil(totalMentores / 10); // 10 é o número de itens por página
+  const totalPages = Math.ceil(totalMentores / limit);
 
   let paginationHTML = "";
 
@@ -109,19 +169,23 @@ const exibirControlesPaginacao = (totalMentores) => {
   }
 
   paginationControls.innerHTML = paginationHTML;
+
+  // Atualize o valor selecionado no select de paginação
+  const selectPaginacaoElement = document.querySelector("#selectPaginacao");
+  selectPaginacaoElement.value = limit;
 };
 
 const mudarPagina = (pageNumber) => {
   buscarMentores(null, pageNumber);
 };
-buscarMentores(null, ordenacaoNome, 1);
+buscarMentores(null, "asc", 1);
 
 // Função para deletar um mentor
 const deleMentor = async (mentorId) => {
   try {
     // Faz uma requisição DELETE para a API, passando o ID do mentor a ser deletado
     await fetch(
-      `http://localhost:3000/mentores/${mentorId}`,
+      `https://api-projetofinal-arnia-md1.onrender.com/mentores/${mentorId}`,
       {
         method: "DELETE",
         headers: {

@@ -16,6 +16,7 @@ const nomeCompleto = document.querySelector("#nomeCompleto");
 const emailCadastro = document.querySelector("#emailCadastr");
 const labelSenhaCadastr = document.querySelector("#labelSenhaCadastr");
 const senhaCadastr = document.querySelector("#senhaCadastr");
+const perfil = document.querySelector("#perfil");
 
 // Altera o estilo ao clicar no botão de login
 document.querySelector("#login").addEventListener("click", () => {
@@ -34,6 +35,11 @@ document.querySelector("#cadastrar").addEventListener("click", () => {
   login.style.color = "black";
   cadastrar.style.color = "white";
 });
+
+// Função para definir o ID do usuário no armazenamento local
+const definirIdUsuarioLocalStorage = (id) => {
+  localStorage.setItem("idUsuario", id);
+};
 
 // Validação do formulário de login
 formulario.addEventListener("submit", async (e) => {
@@ -71,7 +77,7 @@ formulario.addEventListener("submit", async (e) => {
     validacao.style.display = "none"; // Oculta a mensagem de validação
 
     // Realiza a validação dos dados com sua API de usuários
-    const usuarios = await buscarUsuarios(); // Supondo que você já tenha uma função para buscar os usuários da API
+    const usuarios = await buscarUsuarios();
 
     // Verifica se o email e a senha correspondem aos valores esperados
     const usuarioEncontrado = usuarios.find(
@@ -80,9 +86,14 @@ formulario.addEventListener("submit", async (e) => {
     );
 
     if (usuarioEncontrado) {
+      const usuarioId = usuarioEncontrado.id;
+
+      // Salva o ID do usuário no localStorage
+      definirIdUsuarioLocalStorage(usuarioId);
+
       // Redireciona para a página "telainicial.html" após 1 segundo
       setTimeout(function () {
-        window.location = "ProjetoFinal/Src/Html/Mentores/mentores.html";
+        window.location = `ProjetoFinal/Src/Html/Mentores/mentores.html?id=${usuarioId}`;
       }, 1000);
     } else {
       // Exibe a mensagem de validação e aplica as classes de estilo inválido aos elementos
@@ -123,7 +134,6 @@ const buscarUsuarios = async () => {
     return usuariosJson;
   } catch (error) {
     console.log(error);
-    return [];
   }
 };
 
@@ -135,14 +145,10 @@ singup.addEventListener("submit", (e) => {
   const email = emailCadastro.value;
   const senha = senhaCadastr.value;
 
-  let emailValido = true; // Variável para verificar se o email é válido
-  let senhaValida = true; // Variável para verificar se a senha é válida
-
   // Verifica se o campo de nome está vazio e aplica as classes de validação
   if (nome === "") {
     labelCadastr.classList.add("invalidoLabel");
     nomeCompleto.classList.add("invalido");
-    emailValido = false;
   } else {
     labelCadastr.classList.remove("invalidoLabel");
     nomeCompleto.classList.remove("invalido");
@@ -154,7 +160,6 @@ singup.addEventListener("submit", (e) => {
   if (email === "") {
     Labelemail.classList.add("invalidoLabel");
     emailCadastro.classList.add("invalido");
-    senhaValida = false;
   } else {
     Labelemail.classList.remove("invalidoLabel");
     emailCadastro.classList.remove("invalido");
@@ -166,7 +171,6 @@ singup.addEventListener("submit", (e) => {
   if (senha === "") {
     labelSenhaCadastr.classList.add("invalidoLabel");
     senhaCadastr.classList.add("invalido");
-    emailValido = false;
   } else {
     labelSenhaCadastr.classList.remove("invalidoLabel");
     senhaCadastr.classList.remove("invalido");
@@ -182,9 +186,9 @@ singup.addEventListener("submit", (e) => {
       email,
     };
     cadastrarUsuario(usuarios);
-    setTimeout(function(){
-      window.location = "index.html";
-    },1000)
-    
+
+    setTimeout(function () {
+      window.location = `index.html`;
+    }, 1000);
   }
 });

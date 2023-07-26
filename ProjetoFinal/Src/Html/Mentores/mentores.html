@@ -21,7 +21,6 @@
       crossorigin="anonymous"
     />
     <script src="../../JS/Mentores JS/mentores.js" defer></script>
-    <script src="../../JS/login/login.js" defer></script>
   </head>
 
   <body class="dark">
@@ -74,10 +73,7 @@
           <i class="fas fa-user"></i>
         </div>
 
-        <div>
-          <h3>Deivid Souza</h3>
-          <p>deivid@gmail.com</p>
-        </div>
+        <div id="perfil"></div>
       </div>
 
       <div class="titulo">
@@ -104,8 +100,19 @@
           </button>
         </div>
 
-        <div id="paginationControls" class="paginasControl"></div>
-
+        <div class="paginacao">
+          <div class="paginacaoSelect">
+            <select name="" id="selectPaginacao" class="selectPaginacao">
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+            </select>
+          </div>
+          <div id="paginationControls" class="paginasControl"></div>
+        </div>
         <section class="tabela">
           <table id="table">
             <thead>

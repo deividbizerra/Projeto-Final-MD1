@@ -1,5 +1,59 @@
 const tbody = document.querySelector("#tbody");
+const perfil = document.querySelector("#perfil");
+let selectPaginacaoElement = document.querySelector("#selectPaginacao");
 
+// Recupera o valor do select armazenado no localStorage ou define o valor padrão (5)
+const selectPaginacao = localStorage.getItem("selectPaginacao") || "5";
+document.querySelector("#selectPaginacao").value = selectPaginacao;
+
+// Adiciona um evento de escuta para detectar quando o valor do select for alterado
+selectPaginacaoElement.addEventListener("change", () => {
+  // Obtém o novo valor selecionado pelo usuário
+  const novoValor = selectPaginacaoElement.value;
+
+  // Armazena o novo valor no localStorage
+  localStorage.setItem("selectPaginacao", novoValor);
+
+  // Chama a função buscarMentores com o novo valor de limite de página
+  buscarMentorias(null, 1, novoValor);
+});
+
+// Recupera o ID do usuário da URL
+const urlParams = new URLSearchParams(window.location.search);
+const usuarioId = urlParams.get("id");
+
+// Função para exibir o perfil do usuário
+const mostrarPerfil = (dados) => {
+  perfil.innerHTML = `
+    <h3>${dados.nome}</h3>
+    <p>${dados.email}</p>
+  `;
+};
+
+// Função assíncrona para buscar os usuários da API
+const buscarUsuarios = async () => {
+  try {
+    // Recupera o ID do usuário do localStorage
+    const usuarioId = localStorage.getItem("idUsuario");
+
+    // Faz uma requisição GET para a API para buscar os usuários
+    const response = await fetch(
+      `https://api-projetofinal-arnia-md1.onrender.com/usuarios`
+    );
+    const usuariosJson = await response.json();
+
+    // Chama a função mostrarPerfil passando os dados do usuário encontrado
+    const usuarioEncontrado = usuariosJson.find(
+      (usuario) => usuario.id === parseInt(usuarioId)
+    );
+    if (usuarioEncontrado) {
+      mostrarPerfil(usuarioEncontrado);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+buscarUsuarios();
 // Variáveis de controle para ordenação dos mentores
 let ordenacaoMentoria = "asc";
 let ordenacaoNome = "asc";
@@ -51,7 +105,10 @@ const atualizarIconeOrdenacao = (iconeId, ordenacao) => {
 };
 
 // Função para buscar todas as mentorias
-const buscarMentorias = async (pesquisa = null, page = 1, limit = 5) => {
+const buscarMentorias = async (pesquisa = null, page = 1) => {
+  // Recupere o novo valor selecionado do select de paginação
+  const limit = selectPaginacaoElement.value;
+
   let textopesquisa = "";
 
   if (pesquisa) {
@@ -73,7 +130,7 @@ const buscarMentorias = async (pesquisa = null, page = 1, limit = 5) => {
 
   try {
     const response = await fetch(
-      `http://localhost:3000/mentorias${textopesquisa}`
+      `https://api-projetofinal-arnia-md1.onrender.com/mentorias${textopesquisa}`
     );
     const mentoriasJson = await response.json();
 
@@ -81,6 +138,7 @@ const buscarMentorias = async (pesquisa = null, page = 1, limit = 5) => {
     const totalMentoria = parseInt(response.headers.get("X-Total-Count"));
 
     mostrarMentorias(mentoriasJson, totalMentoria);
+    exibirControlesPaginacao(totalMentoria, limit);
   } catch (erro) {
     console.log(erro);
   }
@@ -112,9 +170,9 @@ const mostrarMentorias = (dados, totalMentorias) => {
   exibirControlesPaginacao(totalMentorias);
 };
 
-const exibirControlesPaginacao = (totalMentorias) => {
+const exibirControlesPaginacao = (totalMentorias, limit) => {
   const paginationControls = document.getElementById("paginationControls");
-  const totalPages = Math.ceil(totalMentorias / 5); // 10 é o número de itens por página
+  const totalPages = Math.ceil(totalMentorias / limit);
 
   let paginationHTML = "";
 
@@ -125,22 +183,28 @@ const exibirControlesPaginacao = (totalMentorias) => {
   }
 
   paginationControls.innerHTML = paginationHTML;
+  // Atualize o valor selecionado no select de paginação
+  const selectPaginacaoElement = document.querySelector("#selectPaginacao");
+  selectPaginacaoElement.value = limit;
 };
 
 const mudarPagina = (pageNumber) => {
   buscarMentorias(null, pageNumber);
 };
-buscarMentorias(null, ordenacaoMentoria, 1);
+buscarMentorias(null, "asc", 1);
 
 // Função para deletar uma mentoria
 const deleMentoria = async (mentoriaId) => {
   try {
-    await fetch(`http://localhost:3000/mentorias/${mentoriaId}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    await fetch(
+      `https://api-projetofinal-arnia-md1.onrender.com/mentorias/${mentoriaId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     buscarMentorias();
   } catch (erro) {
     console.log(erro);

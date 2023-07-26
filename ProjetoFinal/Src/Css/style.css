@@ -23,6 +23,13 @@
   align-items: center;
   justify-content: center;
 }
+#perfil > h3 {
+  text-transform: capitalize;
+}
+
+#nomeCompleto {
+  text-transform: capitalize;
+}
 
 .tituloForm {
   margin: 40px 0px 16px 0px;
@@ -130,7 +137,9 @@ button[type="submit"] {
   outline: none;
   padding: 10px;
   cursor: pointer;
+  transition: 0.3s;
 }
+
 .buttonLogin {
   margin-top: 40px;
 }
@@ -346,8 +355,11 @@ button[type="submit"] {
   align-items: center;
   gap: 15px;
   width: 205px;
+  transition: 0.3s;
 }
-
+.buttonNovoCadastro:hover {
+  background-color: #06d853;
+}
 .main-conteudo .inputSearch {
   outline: none;
   width: 300px;
@@ -368,7 +380,7 @@ button[type="submit"] {
   right: 10px;
   transform: translateY(-50%);
   font-size: 18px;
-  color: #999999;
+  color: #6950a1;
 }
 
 .tabela th {
@@ -460,8 +472,16 @@ label {
   color: white;
   display: flex;
   justify-content: center;
+  transition: 0.3s;
 }
 
+.butomAreaLogin:hover {
+  background-color: #543499;
+}
+
+.buttonSalvar button:hover {
+  background-color: #543499;
+}
 .inputsMentoria {
   width: 35%;
 }
@@ -541,19 +561,33 @@ label {
 .btnPaginacao {
   transition: 0.5s;
   padding: 4px;
-  border: 1px solid #482d8359;
+  border: 1px solid #482d83ad;
   border-radius: 3px;
-  margin: 45px 4px 0px;
   font-size: 12px;
 }
 
 .paginasControl {
   display: flex;
-  display: flex;
+  gap: 5px;
   justify-content: flex-end;
 }
 
 .btnPaginacao:hover {
   background-color: #482d83;
   color: white;
+}
+
+.paginacao {
+  margin: 45px 4px 0px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.selectPaginacao {
+  border: 1px solid #482d83ad;
+  border-radius: 2px;
+  width: 35px;
+  font-size: 12px;
+  outline: none;
 }

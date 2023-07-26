@@ -1,5 +1,60 @@
 // Seleciona o elemento tbody da tabela onde os alunos serão exibidos
 const tbody = document.querySelector("#tbody");
+const perfil = document.querySelector("#perfil");
+let selectPaginacaoElement = document.querySelector("#selectPaginacao");
+
+// Recupera o valor do select armazenado no localStorage ou define o valor padrão (5)
+const selectPaginacao = localStorage.getItem("selectPaginacao") || "5";
+document.querySelector("#selectPaginacao").value = selectPaginacao;
+
+// Adiciona um evento de escuta para detectar quando o valor do select for alterado
+selectPaginacaoElement.addEventListener("change", () => {
+  // Obtém o novo valor selecionado pelo usuário
+  const novoValor = selectPaginacaoElement.value;
+
+  // Armazena o novo valor no localStorage
+  localStorage.setItem("selectPaginacao", novoValor);
+
+  // Chama a função buscarMentores com o novo valor de limite de página
+  buscarAluno(null, 1, novoValor);
+});
+
+// Recupera o ID do usuário da URL
+const urlParams = new URLSearchParams(window.location.search);
+const usuarioId = urlParams.get("id");
+
+// Função para exibir o perfil do usuário
+const mostrarPerfil = (dados) => {
+  perfil.innerHTML = `
+    <h3>${dados.nome}</h3>
+    <p>${dados.email}</p>
+  `;
+};
+
+// Função assíncrona para buscar os usuários da API
+const buscarUsuarios = async () => {
+  try {
+    // Recupera o ID do usuário do localStorage
+    const usuarioId = localStorage.getItem("idUsuario");
+
+    // Faz uma requisição GET para a API para buscar os usuários
+    const response = await fetch(
+      `https://api-projetofinal-arnia-md1.onrender.com/usuarios`
+    );
+    const usuariosJson = await response.json();
+
+    // Chama a função mostrarPerfil passando os dados do usuário encontrado
+    const usuarioEncontrado = usuariosJson.find(
+      (usuario) => usuario.id === parseInt(usuarioId)
+    );
+    if (usuarioEncontrado) {
+      mostrarPerfil(usuarioEncontrado);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+buscarUsuarios();
 
 let ordenacaoPorNome = "asc";
 let ordenacaoPorTurma = "asc";
@@ -50,7 +105,10 @@ const atualizarIconeOrdenacao = (iconeId, ordenacao) => {
 };
 
 // Função assíncrona para buscar os alunos
-const buscarAluno = async (pesquisa = null, page = 1, limit = 5) => {
+const buscarAluno = async (pesquisa = null, page = 1) => {
+  // Recupere o novo valor selecionado do select de paginação
+  const limit = selectPaginacaoElement.value;
+
   let textopesquisa = "";
 
   // Verifica se há uma pesquisa a ser feita e monta a query de pesquisa
@@ -63,7 +121,7 @@ const buscarAluno = async (pesquisa = null, page = 1, limit = 5) => {
   } else if (ordenacaoPorTurma === "desc") {
     textopesquisa += textopesquisa ? "&_sort=turma,-1" : "?_sort=turma,-1";
   } else if (ordenacaoPorEmail === "desc") {
-    textopesquisa += textopesquisa ? "&_sort=email,1" : "?_sort=email,1"; // Ordena por Mentoria (título) ascendente por padrão
+    textopesquisa += textopesquisa ? "&_sort=email,1" : "?_sort=email,1";
   }
 
   // Adicione os parâmetros de paginação na URL da requisição
@@ -76,11 +134,12 @@ const buscarAluno = async (pesquisa = null, page = 1, limit = 5) => {
     );
     // Converte a resposta em JSON
     const alunosJson = await response.json();
-    // Chama a função para exibir os alunos na tabela
+
     // Obtém o total de mentores no cabeçalho da resposta
     const totalAluno = parseInt(response.headers.get("X-Total-Count"));
 
     mostrarAlunos(alunosJson, totalAluno);
+    exibirControlesPaginacao(totalAluno, limit);
   } catch (error) {
     console.log(error);
   }
@@ -113,18 +172,30 @@ const mostrarAlunos = (dados, totalAluno) => {
   exibirControlesPaginacao(totalAluno);
 };
 
-const exibirControlesPaginacao = (totalAluno) => {
+// Essa função exibirControlesPaginacao recebe dois parâmetros:
+// totalAluno: o número total de alunos que precisam ser paginados.
+// limit: o número máximo de alunos que serão exibidos por página.
+const exibirControlesPaginacao = (totalAluno, limit) => {
+  // Obtém o elemento HTML que representa os controles de paginação pelo seu ID.
   const paginationControls = document.getElementById("paginationControls");
-  const totalPages = Math.ceil(totalAluno / 5); // 10 é o número de itens por página
 
+  // Calcula o número total de páginas necessárias para exibir todos os alunos.
+  const totalPages = Math.ceil(totalAluno / limit);
+
+  // Inicializa uma variável para armazenar o código HTML dos botões de paginação.
   let paginationHTML = "";
 
+  // Um laço de repetição que vai de 1 até o número total de páginas.
   for (let i = 1; i <= totalPages; i++) {
+    // Para cada página, adiciona um botão de paginação ao código HTML.
+    // O botão terá a classe "btnPaginacao" e ao ser clicado, chamará a função mudarPagina passando o número da página como argumento.
     paginationHTML += `
     <button onclick="mudarPagina(${i})" class="btnPaginacao">${i}</button>
     `;
   }
 
+  // Após criar todos os botões de paginação, insere o código HTML na div "paginationControls",
+  // substituindo o conteúdo anterior, se houver.
   paginationControls.innerHTML = paginationHTML;
 };
 

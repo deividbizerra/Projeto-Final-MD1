@@ -1,20 +1,59 @@
 // Seleciona o formulário pelo seu ID
 const formNovaTurma = document.querySelector("#formNovaTurma");
 
-const errorMentor = document.querySelector("#mentor")
-const erroMentoria = document.querySelector("#tituloMentoria")
-const erroDataInicio = document.querySelector("#dataInicio")
-const erroDiasDaSemana = document.querySelector("#diasDaSemana")
-const erroHorarioInicio= document.querySelector("#horarioInicio")
-const erroHorarioFim = document.querySelector("#horarioFim")
-const erroTurma = document.querySelector("#turma")
-const erroLinkAula = document.querySelector("#linkAula")
-const erroQtdEncontro = document.querySelector("#qtdEncontro")
+const errorMentor = document.querySelector("#mentor");
+const erroMentoria = document.querySelector("#tituloMentoria");
+const erroDataInicio = document.querySelector("#dataInicio");
+const erroDiasDaSemana = document.querySelector("#diasDaSemana");
+const erroHorarioInicio = document.querySelector("#horarioInicio");
+const erroHorarioFim = document.querySelector("#horarioFim");
+const erroTurma = document.querySelector("#turma");
+const erroLinkAula = document.querySelector("#linkAula");
+const erroQtdEncontro = document.querySelector("#qtdEncontro");
+
+const perfil = document.querySelector("#perfil");
+
+// Recupera o ID do usuário da URL
+const urlParams = new URLSearchParams(window.location.search);
+const usuarioId = urlParams.get("id");
+
+// Função para exibir o perfil do usuário
+const mostrarPerfil = (dados) => {
+  perfil.innerHTML = `
+    <h3>${dados.nome}</h3>
+    <p>${dados.email}</p>
+  `;
+};
+
+// Função assíncrona para buscar os usuários da API
+const buscarUsuarios = async () => {
+  try {
+    // Recupera o ID do usuário do localStorage
+    const usuarioId = localStorage.getItem("idUsuario");
+
+    // Faz uma requisição GET para a API para buscar os usuários
+    const response = await fetch(
+      `https://api-projetofinal-arnia-md1.onrender.com/usuarios`
+    );
+    const usuariosJson = await response.json();
+
+    // Chama a função mostrarPerfil passando os dados do usuário encontrado
+    const usuarioEncontrado = usuariosJson.find(
+      (usuario) => usuario.id === parseInt(usuarioId)
+    );
+    if (usuarioEncontrado) {
+      mostrarPerfil(usuarioEncontrado);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+buscarUsuarios();
 
 // Função assíncrona para buscar todos os mentores
 const buscarMentores = async () => {
   const response = await fetch(
-    `http://localhost:3000/mentores`
+    `https://api-projetofinal-arnia-md1.onrender.com/mentores`
   );
   const mentorJson = await response.json();
   return mentorJson;
@@ -41,7 +80,7 @@ const buscarMentoriasId = async (id) => {
   }
 
   const response = await fetch(
-    `http://localhost:3000/mentorias/${id}`
+    `https://api-projetofinal-arnia-md1.onrender.com/mentorias/${id}`
   );
   const mentoriasJson = await response.json();
   return mentoriasJson;
@@ -50,7 +89,7 @@ const buscarMentoriasId = async (id) => {
 // Função assíncrona para buscar todas as mentorias
 const buscarMentorias = async () => {
   const response = await fetch(
-    `http://localhost:3000/mentorias`
+    `https://api-projetofinal-arnia-md1.onrender.com/mentorias`
   );
   const mentoriaJson = await response.json();
   return mentoriaJson;
@@ -73,7 +112,7 @@ const carregarSelectMentoria = async () => {
 // Função assíncrona para cadastrar uma nova turma
 const cadastrarNovaTurma = async (turmas) => {
   try {
-    await fetch(`http://localhost:3000/turmas`, {
+    await fetch(`https://api-projetofinal-arnia-md1.onrender.com/turmas`, {
       method: "POST",
       headers: {
         Accept: "application/json, text/plain, */*",
@@ -111,17 +150,16 @@ formNovaTurma.addEventListener("submit", async (e) => {
   const mentoriaName = mentoriaOption.text;
 
   if (
-    diasDaSemana  !== "" &&
+    diasDaSemana !== "" &&
     horarioInicio !== "" &&
-    horarioFim !== ""&&
-    turma !== ""&&
-    linkAula !== ""&&
-    qtdEncontro !== ""&&
-    dataInicio !== ""&&
-    mentorName !== ""&&
+    horarioFim !== "" &&
+    turma !== "" &&
+    linkAula !== "" &&
+    qtdEncontro !== "" &&
+    dataInicio !== "" &&
+    mentorName !== "" &&
     mentoriaName !== ""
   ) {
-   
     // Cria um objeto com os valores dos campos do formulário
     const turmas = {
       turma,
@@ -136,7 +174,7 @@ formNovaTurma.addEventListener("submit", async (e) => {
       linkAula,
       dataInicio,
     };
-   
+
     cadastrarNovaTurma(turmas);
   } else {
     errorMentor.classList.add("invalido");
@@ -148,8 +186,6 @@ formNovaTurma.addEventListener("submit", async (e) => {
     erroTurma.classList.add("invalido");
     erroLinkAula.classList.add("invalido");
     erroQtdEncontro.classList.add("invalido");
-
-
   }
 });
 

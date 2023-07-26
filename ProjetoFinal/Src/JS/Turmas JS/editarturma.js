@@ -2,6 +2,7 @@
 const formulario = document.querySelector("#formNovaTurma");
 // Variável para armazenar o ID da turma a ser editada
 let idEditar = null;
+const perfil = document.querySelector("#perfil");
 
 // Função para recuperar o ID da turma da URL
 const recuperarId = () => {
@@ -11,11 +12,42 @@ const recuperarId = () => {
   return id;
 };
 
+// Função para exibir o perfil do usuário
+const mostrarPerfil = (dados) => {
+  perfil.innerHTML = `
+    <h3>${dados.nome}</h3>
+    <p>${dados.email}</p>
+  `;
+};
 
+// Função assíncrona para buscar os usuários da API
+const buscarUsuarios = async () => {
+  try {
+    // Recupera o ID do usuário do localStorage
+    const usuarioId = recuperarId();
+
+    // Faz uma requisição GET para a API para buscar os usuários
+    const response = await fetch(
+      `https://api-projetofinal-arnia-md1.onrender.com/usuarios`
+    );
+    const usuariosJson = await response.json();
+
+    // Chama a função mostrarPerfil passando os dados do usuário encontrado
+    const usuarioEncontrado = usuariosJson.find(
+      (usuario) => usuario.id === parseInt(usuarioId)
+    );
+    if (usuarioEncontrado) {
+      mostrarPerfil(usuarioEncontrado);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+buscarUsuarios();
 // Função assíncrona para buscar os dados de uma turma pelo ID
 const buscarTurma = async (id) => {
   const resposta = await fetch(
-    `http://localhost:3000/turmas/${id}`
+    `https://api-projetofinal-arnia-md1.onrender.com/turmas/${id}`
   );
   const autorJson = await resposta.json();
   return autorJson;
@@ -36,7 +68,7 @@ const carregarDadosTurmas = (turmas) => {
 
 // Função assíncrona para editar uma turma
 const editarturma = async (id, turmas) => {
-  await fetch(`http://localhost:3000/turmas/${id}`, {
+  await fetch(`https://api-projetofinal-arnia-md1.onrender.com/turmas/${id}`, {
     method: "PUT",
     headers: {
       Accept: "application/json, text/plain, */*",
@@ -58,7 +90,7 @@ const carregarDadosEditar = async () => {
 // Função assíncrona para buscar as mentorias
 const buscarMentorias = async () => {
   const response = await fetch(
-    `http://localhost:3000/mentorias`
+    `https://api-projetofinal-arnia-md1.onrender.com/mentorias`
   );
   const mentoriaJson = await response.json();
   return mentoriaJson;
@@ -81,7 +113,7 @@ const carregarSelectMentoria = async () => {
 // Função assíncrona para buscar os mentores
 const buscarMentores = async () => {
   const response = await fetch(
-    `http://localhost:3000/mentores`
+    `https://api-projetofinal-arnia-md1.onrender.com/mentores`
   );
   const mentoresJson = await response.json();
   return mentoresJson;
