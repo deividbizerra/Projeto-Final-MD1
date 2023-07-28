@@ -181,4 +181,5 @@ formulario.addEventListener("submit", async (e) => {
 // Chama as funções para carregar os dados de edição, as opções de mentoria e os mentores
 carregarSelectMentores();
 carregarSelectMentoria();
+
 carregarDadosEditar();

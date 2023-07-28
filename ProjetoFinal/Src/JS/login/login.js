@@ -45,14 +45,12 @@ const definirIdUsuarioLocalStorage = (id) => {
 formulario.addEventListener("submit", async (e) => {
   e.preventDefault(); // Impedindo o envio padrão do formulário
 
-  let emailValido = true; // Variável para verificar se o email é válido
-  let senhaValida = true; // Variável para verificar se a senha é válida
+
 
   // Verifica se o campo de email está vazio e aplica as classes de validação
   if (email.value === "") {
     label.classList.add("invalidoLabel");
     email.classList.add("invalido");
-    emailValido = false;
   } else {
     label.classList.remove("invalidoLabel");
     email.classList.remove("invalido");
@@ -64,7 +62,6 @@ formulario.addEventListener("submit", async (e) => {
   if (senha.value === "") {
     idLabel.classList.add("invalidoLabel");
     senha.classList.add("invalido");
-    senhaValida = false;
   } else {
     idLabel.classList.remove("invalidoLabel");
     senha.classList.remove("invalido");
@@ -72,6 +69,9 @@ formulario.addEventListener("submit", async (e) => {
     senha.classList.add("sucesso");
   }
 
+  let emailValido = true; // Variável para verificar se o email é válido
+  let senhaValida = true; // Variável para verificar se a senha é válida
+  
   // Verifica se tanto o email quanto a senha são válidos
   if (emailValido && senhaValida) {
     validacao.style.display = "none"; // Oculta a mensagem de validação
@@ -91,7 +91,6 @@ formulario.addEventListener("submit", async (e) => {
       // Salva o ID do usuário no localStorage
       definirIdUsuarioLocalStorage(usuarioId);
 
-      // Redireciona para a página "telainicial.html" após 1 segundo
       setTimeout(function () {
         window.location = `ProjetoFinal/Src/Html/Mentores/mentores.html?id=${usuarioId}`;
       }, 1000);

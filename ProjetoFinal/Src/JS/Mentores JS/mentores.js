@@ -97,6 +97,7 @@ const atualizarIconeOrdenacao = (iconeId, ordenacao) => {
 
 // Função assíncrona para buscar os mentores na API
 const buscarMentores = async (pesquisa = null, page = 1) => {
+
   // Recupere o novo valor selecionado do select de paginação
   const limit = selectPaginacaoElement.value;
 
@@ -114,6 +115,7 @@ const buscarMentores = async (pesquisa = null, page = 1) => {
 
   // Adicione os parâmetros de paginação na URL da requisição
   textopesquisa += `${textopesquisa ? "&" : "?"}_page=${page}&_limit=${limit}`;
+
   try {
     // Faz uma requisição na API para obter os dados dos mentores
     const response = await fetch(
@@ -210,7 +212,7 @@ const editarMentores = (id) => {
   window.location = `../Mentores/editarmentor.html?id=${id}`;
 };
 
-// Função para redirecionar para a página de criação de nova mentoria
+// Função para redirecionar para a página de criação de novo mentor
 const novoMentor = () => {
   window.location = "../Mentores/novomento.html";
 };

@@ -17,6 +17,7 @@ const mostrarPerfil = (dados) => {
 // Função assíncrona para buscar os usuários da API
 const buscarUsuarios = async () => {
   try {
+    
     // Recupera o ID do usuário do localStorage
     const usuarioId = localStorage.getItem("idUsuario");
 
